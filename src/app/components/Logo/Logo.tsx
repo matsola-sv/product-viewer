@@ -1,28 +1,37 @@
+import type { FC } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
 import * as ROUTES from '@/app/router/routes';
-import { AccountTree } from '@mui/icons-material';
-import { Box, Typography } from '@mui/material';
+import { getPublicImage } from '@/shared/utils/url';
+import { Box } from '@mui/material';
 
-const Logo = () => (
-	<Box
-		component={Link}
-		to={ROUTES.HOME}
-		sx={{
-			display: 'flex',
-			alignItems: 'center',
-			textDecoration: 'none',
-			color: 'inherit',
-		}}
-	>
-		<AccountTree sx={{ mr: 1 }} />
-		<Typography
-			variant='h6'
-			noWrap
+const Logo: FC = () => {
+	const { t } = useTranslation();
+
+	return (
+		<Box
+			component={Link}
+			to={ROUTES.HOME}
+			sx={{
+				display: 'flex',
+				alignItems: 'center',
+				textDecoration: 'none',
+				color: 'inherit',
+			}}
 		>
-			Hierarchy
-		</Typography>
-	</Box>
-);
+			<Box
+				component='img'
+				src={getPublicImage('logo-white.svg')}
+				alt={t('app.components.logo.alt')}
+				sx={{
+					height: 32,
+					width: 'auto',
+					mr: 1,
+				}}
+			/>
+		</Box>
+	);
+};
 
 export default Logo;

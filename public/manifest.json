@@ -1,14 +1,9 @@
 {
-	"short_name": "Product Viewer",
-	"name": "Product Viewer",
+	"short_name": "Luxonis Viewer",
+	"name": "Luxonis Product Viewer",
 	"icons": [
 		{
-			"src": "images/vite.svg",
-			"type": "image/svg+xml",
-			"sizes": "any"
-		},
-		{
-			"src": "images/favicon.svg",
+			"src": "images/favicon.ico",
 			"type": "image/svg+xml",
 			"sizes": "16x16"
 		}

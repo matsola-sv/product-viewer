@@ -9,7 +9,7 @@ const NotFoundPage: FC = () => {
 
 	return (
 		<Box sx={{ height: '100%' }}>
-			<EmptyState message={t('pages.errors.notFound.message')} />
+			<EmptyState message={t('app.pages.errors.notFound.message')} />
 		</Box>
 	);
 };
