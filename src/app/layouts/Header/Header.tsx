@@ -13,8 +13,10 @@ const Header: FC<HeaderProps> = ({ height }) => {
 	return (
 		<AppBar
 			position='fixed'
-			color='primary'
-			sx={{ height: height }}
+			sx={{
+				height: height,
+				backgroundColor: 'rgba(0, 0, 0, 0.9)',
+			}}
 		>
 			<Toolbar
 				sx={{

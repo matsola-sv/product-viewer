@@ -12,20 +12,32 @@
 	"importOrder": [
 		"^react",
 		"<THIRD_PARTY_MODULES>",
-		"(^@/(models|types)(/.*)?$)|(.*types.*)",
-		"(^@/(schemas)(/.*)?$)|(.*schema.*)",
-		"^@/constants/(.*)$",
-		"^@/core/(.*)$",
-		"^@/hooks/(.*)$",
-		"^@/utils/(.*)$",
-		"^@/services/(.*)$",
-		"^@/store(/.*)?$",
-		"^@/pages/(.*)$",
-		"^@/components(/.*)?(?<!\\.(css|scss|sass|less))$",
-		"^\\./.*$",
-		"^@/assets/(.*)$",
+
+		"^@/app/router(/.*)?$",
+		"^@/app/providers(/.*)?$",
+		"^@/app/layouts(/.*)?$",
+		"^@/app(/.*)?$",
+
+		"^@/features(/.*)?$",
+
+		"(^@/(.*?/)?(models|types)(/.*)?$)|(.*types.*)",
+		"(^@/(.*?/)?schemas(/.*)?$)|(.*schema.*)",
+
+		"^@/(.*?/)?constants(/.*)?$",
+		"^@/(.*?/)?hooks(/.*)?$",
+		"^@/(.*?/)?utils(/.*)?$",
+		"^@/(.*?/)?services(/.*)?$",
+		"^@/(.*?/)?store(/.*)?$",
+
+		"^@/(.*?/)?components(/.*)?(?<!\\.(css|scss|sass|less))$",
+
+		"^\\.\\.?/[^\\n]*$",
+
+		"^@/assets(/.*)?$",
+
 		"\\.(css|scss|sass|less)$"
 	],
+
 	"importOrderSeparation": true,
 	"importOrderSortSpecifiers": true
 }
