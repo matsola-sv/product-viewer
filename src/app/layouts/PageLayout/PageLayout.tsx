@@ -1,9 +1,11 @@
 import { type FC } from 'react';
 import { Outlet } from 'react-router-dom';
 
-import useLayoutMetrics from '@/app/hooks/useLayoutMetrics';
-import Header from '@/app/layouts/Header';
 import { Box } from '@mui/material';
+
+import Header from '@/app/layouts/Header';
+
+import useLayoutMetrics from '@/app/hooks/useLayoutMetrics';
 
 /**
  * Responsive layout with a fixed (per breakpoint) header and full-height content area.

@@ -1,10 +1,13 @@
 import type { FC } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
+import * as ROUTES from '@/app/router/routes';
+
 import PageLayout from '@/app/layouts/PageLayout';
+
 import NotFoundPage from '@/app/pages/Errors/NotFound';
 import HomePage from '@/app/pages/Home';
-import * as ROUTES from '@/app/router/routes';
+
 import { getPublicUrl } from '@/shared/utils/url';
 
 const AppRouter: FC = () => (

@@ -2,9 +2,11 @@ import type { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
-import * as ROUTES from '@/app/router/routes';
-import { getPublicImage } from '@/shared/utils/url';
 import { Box } from '@mui/material';
+
+import * as ROUTES from '@/app/router/routes';
+
+import { getPublicImage } from '@/shared/utils/url';
 
 const Logo: FC = () => {
 	const { t } = useTranslation();

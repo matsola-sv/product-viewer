@@ -1,7 +1,8 @@
 import type { FC } from 'react';
 
-import AppRouter from '@/app/router/AppRouter';
 import { Box } from '@mui/material';
+
+import AppRouter from '@/app/router/AppRouter';
 
 const App: FC = () => {
 	return (

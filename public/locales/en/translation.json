@@ -12,5 +12,14 @@
 				"alt": "Luxonis Viewer logo"
 			}
 		}
+	},
+	"productMedia": {
+			"autoPlayToggle": {
+				"tooltip": {
+					"on": "AutoPlay ON",
+					"off": "AutoPlay OFF"
+				}
+			}
+		}
 	}
 }

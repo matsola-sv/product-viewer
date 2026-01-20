@@ -1,5 +1,6 @@
-import { FOOTER_HEIGHTS, HEADER_HEIGHTS } from '@/app/layouts/config';
 import type { SxProps, Theme } from '@mui/material';
+
+import { FOOTER_HEIGHTS, HEADER_HEIGHTS } from '@/app/layouts/config';
 
 import type { ResponsiveValues } from '@/shared/ui/types';
 

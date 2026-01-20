@@ -1,8 +1,9 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 
-import App from '@/app';
 import LangProvider from '@/app/providers/LangProvider';
+
+import App from '@/app';
 
 import '@/assets/styles/index.css';
 

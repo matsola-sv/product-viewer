@@ -1,7 +1,8 @@
 import type { FC } from 'react';
 
-import Logo from '@/app/components/Logo';
 import { AppBar, Toolbar } from '@mui/material';
+
+import Logo from '@/app/components/Logo';
 
 import type { ResponsiveValues } from '@/shared/ui/types';
 

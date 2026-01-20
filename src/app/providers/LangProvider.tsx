@@ -1,8 +1,10 @@
 import { type FC, type PropsWithChildren, useEffect, useState } from 'react';
 
-import type { AppLanguage } from '@/shared/localization/models/language';
-import { languageService } from '@/shared/localization/services/languageService';
 import OverlaySpinner from '@/shared/ui/spinners/OverlaySpinner';
+
+import type { AppLanguage } from '@/shared/localization/models/language';
+
+import { languageService } from '@/shared/localization/services/languageService';
 
 interface LangProviderProps extends PropsWithChildren {
 	lng?: AppLanguage; // Default language
