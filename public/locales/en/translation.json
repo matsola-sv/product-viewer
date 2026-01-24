@@ -14,11 +14,10 @@
 		}
 	},
 	"productMedia": {
-			"autoPlayToggle": {
-				"tooltip": {
-					"on": "AutoPlay ON",
-					"off": "AutoPlay OFF"
-				}
+		"autoPlayToggle": {
+			"tooltip": {
+				"on": "AutoPlay ON",
+				"off": "AutoPlay OFF"
 			}
 		}
 	}
