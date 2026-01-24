@@ -1,6 +1,10 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/thumbs';
+
 import LangProvider from '@/app/providers/LangProvider';
 
 import App from '@/app';
