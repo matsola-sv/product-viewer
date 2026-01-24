@@ -10,9 +10,11 @@ interface Params {
 	autoplayOptions?: AutoplayOptions;
 }
 
-export const useAutoplay = ({ swiper, autoplay, autoplayOptions }: Params) => {
-	// Swiper initializes autoplay only once,
-	// so we need to manually start/stop it when the prop changes
+/**
+ * Syncs autoplay prop with Swiper autoplay API for dynamic control.
+ * Without this, Swiper autoplay cannot be toggled after initialization.
+ */
+export const useAutoplayControl = ({ swiper, autoplay }: Params) => {
 	useEffect(() => {
 		if (!swiper || !swiper.autoplay) return;
 
@@ -22,13 +24,4 @@ export const useAutoplay = ({ swiper, autoplay, autoplayOptions }: Params) => {
 		}
 		swiper.autoplay.stop();
 	}, [swiper, autoplay]);
-
-	const autoplayValue: AutoplayOptions | false = autoplay
-		? (autoplayOptions ?? {
-				delay: 3000,
-				disableOnInteraction: false,
-			})
-		: false;
-
-	return { autoplayValue };
 };

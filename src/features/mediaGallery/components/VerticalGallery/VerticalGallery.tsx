@@ -5,10 +5,13 @@ import type { Swiper as SwiperType } from 'swiper';
 import { Autoplay, Mousewheel, Navigation, Thumbs } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
+import { useAutoplayControl } from '../../hooks/useAutoplayControl';
+import { useAutoplayProgress } from '../../hooks/useAutoplayProgress';
+import { stopSlideVideo } from '../../utils/galleryVideo';
+import AutoplayProgress from '../AutoplayProgress';
 import type { GalleryProps } from '../gallery.types';
 
-import { useAutoplay } from '../../hooks/useAutoplay';
-import { stopSlideVideo } from '../../utils/galleryVideo';
+import { AUTOPLAY_OPTIONS } from '../../constants/gallery';
 import GallerySlide from '../GallerySlide';
 import GalleryThumbnail from '../GalleryThumbnail';
 import { hoverNavStyles, noSelect, stateStyles } from '../gallery.styles';
@@ -24,18 +27,18 @@ const VerticalGallery = (props: GalleryProps) => {
 	const {
 		items,
 		autoplay = false,
-		autoplayOptions,
 		loop = false,
 		thumbnail = { width: 96, height: 64 },
 	} = props;
 
 	const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
 	const [swiperInstance, setSwiperInstance] = useState<SwiperType | null>(null);
+	const { progressCircle, progressContent, onAutoplayTimeLeft } = useAutoplayProgress();
 
-	const { autoplayValue } = useAutoplay({
+	// Allow autoplay to be toggled dynamically
+	useAutoplayControl({
 		swiper: swiperInstance,
 		autoplay,
-		autoplayOptions,
 	});
 
 	return (
@@ -101,10 +104,11 @@ const VerticalGallery = (props: GalleryProps) => {
 				<Swiper
 					modules={[Thumbs, Autoplay, Navigation]}
 					thumbs={{ swiper: thumbsSwiper }}
-					autoplay={autoplayValue}
+					autoplay={AUTOPLAY_OPTIONS} // Cannot be changed dynamically (Swiper limitation)
+					navigation
 					onSwiper={setSwiperInstance}
 					onSlideChange={stopSlideVideo}
-					navigation
+					onAutoplayTimeLeft={onAutoplayTimeLeft}
 					style={{ height: '100%' }}
 				>
 					{items.map(item => (
@@ -112,6 +116,13 @@ const VerticalGallery = (props: GalleryProps) => {
 							<GallerySlide item={item} />
 						</SwiperSlide>
 					))}
+
+					{autoplay && (
+						<AutoplayProgress
+							progressRef={progressCircle}
+							progressLabelRef={progressContent}
+						/>
+					)}
 				</Swiper>
 			</Box>
 		</Box>

@@ -1,5 +1,4 @@
 import type { MediaItem } from '../models/media.types';
-import type { AutoplayOptions } from 'swiper/types';
 
 export interface GalleryProps {
 	items: MediaItem[];
@@ -9,5 +8,5 @@ export interface GalleryProps {
 		height: number;
 	};
 	autoplay?: boolean;
-	autoplayOptions?: AutoplayOptions;
+	onAutoplayChange?: (value: boolean) => void;
 }
