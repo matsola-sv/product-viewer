@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import { Box } from '@mui/material';
 import type { Swiper as SwiperType } from 'swiper';
-import { Autoplay, Navigation, Thumbs } from 'swiper/modules';
+import { Autoplay, EffectFade, Navigation, Thumbs } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import type { GalleryProps } from '../gallery.types';
@@ -62,12 +62,13 @@ const HorizontalGallery = (props: GalleryProps) => {
 			>
 				<Swiper
 					onSwiper={setSwiperInstance}
-					modules={[Navigation, Thumbs, Autoplay]}
+					modules={[Navigation, Thumbs, Autoplay, EffectFade]}
 					navigation
 					thumbs={{ swiper: thumbsSwiper }}
 					autoplay={AUTOPLAY_OPTIONS} // Cannot be changed dynamically (Swiper limitation)
 					loop={loop}
 					slidesPerView={1}
+					effect='fade'
 					onSlideChange={stopSlideVideo}
 					onAutoplayTimeLeft={onAutoplayTimeLeft}
 					style={{ height: '100%' }}

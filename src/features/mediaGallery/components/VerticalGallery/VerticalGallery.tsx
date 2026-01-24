@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import { Box } from '@mui/material';
 import type { Swiper as SwiperType } from 'swiper';
-import { Autoplay, Mousewheel, Navigation, Thumbs } from 'swiper/modules';
+import { Autoplay, EffectFade, Mousewheel, Navigation, Thumbs } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { useAutoplayControl } from '../../hooks/useAutoplayControl';
@@ -102,10 +102,11 @@ const VerticalGallery = (props: GalleryProps) => {
 				}}
 			>
 				<Swiper
-					modules={[Thumbs, Autoplay, Navigation]}
+					modules={[Navigation, Thumbs, Autoplay, EffectFade]}
 					thumbs={{ swiper: thumbsSwiper }}
 					autoplay={AUTOPLAY_OPTIONS} // Cannot be changed dynamically (Swiper limitation)
 					navigation
+					effect='fade'
 					onSwiper={setSwiperInstance}
 					onSlideChange={stopSlideVideo}
 					onAutoplayTimeLeft={onAutoplayTimeLeft}
