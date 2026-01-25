@@ -12,6 +12,7 @@ import { AUTOPLAY_OPTIONS } from '../../constants/gallery';
 
 import { useAutoplayControl } from '../../hooks/useAutoplayControl';
 import { useAutoplayProgress } from '../../hooks/useAutoplayProgress';
+import useSwiper from '../../hooks/useSwiper';
 
 import { stopSlideVideo } from '../../utils/galleryVideo';
 
@@ -29,10 +30,14 @@ const HorizontalGallery = (props: GalleryProps) => {
 		loop = false,
 		thumbnail = { width: 96, height: 74 },
 		onAutoplayChange,
+		activeIndex,
 	} = props;
 
 	const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
-	const [swiperInstance, setSwiperInstance] = useState<SwiperType | null>(null);
+	const { swiperInstance, setSwiperInstance } = useSwiper({
+		activeIndex,
+		loop,
+	});
 
 	const { progressCircle, progressContent, onAutoplayTimeLeft } = useAutoplayProgress();
 
@@ -63,6 +68,7 @@ const HorizontalGallery = (props: GalleryProps) => {
 				}}
 			>
 				<Swiper
+					initialSlide={activeIndex}
 					onSwiper={setSwiperInstance}
 					modules={[Navigation, Thumbs, Autoplay, EffectFade]}
 					navigation
