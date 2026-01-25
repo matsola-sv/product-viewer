@@ -11,8 +11,10 @@
 	"plugins": ["@trivago/prettier-plugin-sort-imports"],
 	"importOrder": [
 		"^react",
+		"^@mui/",
 		"<THIRD_PARTY_MODULES>",
-
+		
+		
 		"^@/app/router(/.*)?$",
 		"^@/app/providers(/.*)?$",
 		"^@/app/layouts(/.*)?$",
@@ -20,21 +22,22 @@
 
 		"^@/features(/.*)?$",
 
-		"(.*?/)?(models|types)(/.*)?$)|(.*types.*)",
-		"(.*?/)?schemas(/.*)?$)|(.*schema.*)",
-		"(.*?/)?constants(/.*)?$",
-		"(.*?/)?hooks(/.*)?$",
-		"(.*?/)?utils(/.*)?$",
-		"(.*?/)?services(/.*)?$",
-		"(.*?/)?store(/.*)?$",
-
-		"(.*?/)?components(/.*)?(?<!\\.(css|scss|sass|less))$",
+		"/(models|types)/|\\b(models?|types?)\\.|\\.types\\b",
+		"/schemas?/|\\bschemas?\\.|\\.(schema|schemas)\\b",
+		"/config/|\\bconfig\\b|\\.config",
+		"/constants/",
+		"/hooks/",
+		"/utils/",
+		"/services/",
+		"/store/",
+		"/providers/",
+		"/components/|^\\.\\.?\\/[A-Z]",
 
 		"^\\.\\.?/[^\\n]*$",
 
 		"^@/assets(/.*)?$",
 
-		"\\.(css|scss|sass|less)$"
+		"\\.(css|scss|sass|less|styles)$"
 	],
 
 	"importOrderSeparation": true,
