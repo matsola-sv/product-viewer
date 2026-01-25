@@ -107,7 +107,6 @@ const VerticalGallery = (props: GalleryProps) => {
 			<Box
 				sx={{
 					overflow: 'hidden',
-					bgcolor: '#cecccc', // for transparent images
 					...hoverNavStyles,
 				}}
 			>

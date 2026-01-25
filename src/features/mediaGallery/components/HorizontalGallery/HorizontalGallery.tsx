@@ -63,7 +63,6 @@ const HorizontalGallery = (props: GalleryProps) => {
 					flex: 1,
 					minHeight: 0,
 					position: 'relative', // keeps autoplay button within bounds
-					bgcolor: '#cecccc', // for transparent images
 					...hoverNavStyles,
 				}}
 			>
