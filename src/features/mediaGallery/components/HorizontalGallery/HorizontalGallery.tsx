@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 import { Box } from '@mui/material';
+
 import type { Swiper as SwiperType } from 'swiper';
 import { Autoplay, EffectFade, Navigation, Thumbs } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -18,6 +19,7 @@ import AutoplayProgress from '../AutoplayProgress';
 import AutoplayToggle from '../AutoplayToggle';
 import GallerySlide from '../GallerySlide';
 import GalleryThumbnail from '../GalleryThumbnail';
+
 import { hoverNavStyles, noSelect, stateStyles } from '../gallery.styles';
 
 const HorizontalGallery = (props: GalleryProps) => {

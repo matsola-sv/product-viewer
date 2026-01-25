@@ -2,9 +2,9 @@ import type { FC } from 'react';
 
 import { AppBar, Toolbar } from '@mui/material';
 
-import Logo from '@/app/components/Logo';
-
 import type { ResponsiveValues } from '@/shared/ui/types';
+
+import Logo from '@/app/components/Logo';
 
 export interface HeaderProps {
 	height?: ResponsiveValues<number | string>;

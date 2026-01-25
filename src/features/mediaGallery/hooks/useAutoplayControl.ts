@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 
 import type { Swiper as SwiperType } from 'swiper';
-
 import type { AutoplayOptions } from 'swiper/types';
 
 interface Params {

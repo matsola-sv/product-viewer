@@ -1,7 +1,8 @@
+import { AppLanguage } from '../models/language';
+
 import { getPublicUrl } from '@/shared/utils/url';
 
 import { initI18n } from '../i18n';
-import { AppLanguage } from '../models/language';
 
 export const languageService = (() => {
 	return {

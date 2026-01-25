@@ -1,19 +1,24 @@
 import { useState } from 'react';
 
 import { Box } from '@mui/material';
+
 import type { Swiper as SwiperType } from 'swiper';
 import { Autoplay, EffectFade, Mousewheel, Navigation, Thumbs } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-import { useAutoplayControl } from '../../hooks/useAutoplayControl';
-import { useAutoplayProgress } from '../../hooks/useAutoplayProgress';
-import { stopSlideVideo } from '../../utils/galleryVideo';
-import AutoplayProgress from '../AutoplayProgress';
 import type { GalleryProps } from '../gallery.types';
 
 import { AUTOPLAY_OPTIONS } from '../../constants/gallery';
+
+import { useAutoplayControl } from '../../hooks/useAutoplayControl';
+import { useAutoplayProgress } from '../../hooks/useAutoplayProgress';
+
+import { stopSlideVideo } from '../../utils/galleryVideo';
+
+import AutoplayProgress from '../AutoplayProgress';
 import GallerySlide from '../GallerySlide';
 import GalleryThumbnail from '../GalleryThumbnail';
+
 import { hoverNavStyles, noSelect, stateStyles } from '../gallery.styles';
 
 /** Center thumbnails vertically when slidesPerView="auto" */

@@ -1,8 +1,9 @@
 import type { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import EmptyState from '@/shared/ui/EmptyState';
 import { Box } from '@mui/material';
+
+import EmptyState from '@/shared/ui/EmptyState';
 
 const NotFoundPage: FC = () => {
 	const { t } = useTranslation();
