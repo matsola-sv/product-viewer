@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { Box } from '@mui/material';
+import { Box, type SxProps, type Theme } from '@mui/material';
 
 import type { Swiper as SwiperType } from 'swiper';
 import { Autoplay, EffectFade, Navigation, Thumbs } from 'swiper/modules';
@@ -14,8 +14,6 @@ import { useAutoplayControl } from '../../hooks/useAutoplayControl';
 import { useAutoplayProgress } from '../../hooks/useAutoplayProgress';
 import useSwiper from '../../hooks/useSwiper';
 
-import { stopSlideVideo } from '../../utils/galleryVideo';
-
 import AutoplayProgress from '../AutoplayProgress';
 import AutoplayToggle from '../AutoplayToggle';
 import GallerySlide from '../GallerySlide';
@@ -23,20 +21,34 @@ import GalleryThumbnail from '../GalleryThumbnail';
 
 import { hoverNavStyles, noSelect, stateStyles } from '../gallery.styles';
 
+const galleryWrapperStyle: SxProps<Theme> = {
+	height: '100%',
+	display: 'flex',
+	flexDirection: 'column',
+	bgcolor: '#b9b5b5',
+	gap: '10px',
+	...noSelect,
+};
+
 const HorizontalGallery = (props: GalleryProps) => {
 	const {
 		items,
-		autoplay = false,
-		loop = false,
-		thumbnail = { width: 96, height: 74 },
-		onAutoplayChange,
 		activeIndex,
+		loop = false,
+		autoplay = false,
+		style,
+		thumbnail = { width: 96, height: 74 },
+		onClick,
+		onSlideChange,
+		onAutoplayChange,
 	} = props;
 
 	const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
-	const { swiperInstance, setSwiperInstance } = useSwiper({
-		activeIndex,
+	const { swiperInstance, setSwiperInstance, slideChangeHandler, clickHandler } = useSwiper({
 		loop,
+		activeIndex,
+		onClick,
+		onSlideChange,
 	});
 
 	const { progressCircle, progressContent, onAutoplayTimeLeft } = useAutoplayProgress();
@@ -48,16 +60,7 @@ const HorizontalGallery = (props: GalleryProps) => {
 	});
 
 	return (
-		<Box
-			sx={{
-				height: '100%',
-				display: 'flex',
-				flexDirection: 'column',
-				bgcolor: '#b9b5b5',
-				gap: '10px',
-				...noSelect,
-			}}
-		>
+		<Box sx={{ ...galleryWrapperStyle, ...style }}>
 			<Box
 				sx={{
 					flex: 1,
@@ -76,7 +79,8 @@ const HorizontalGallery = (props: GalleryProps) => {
 					loop={loop}
 					slidesPerView={1}
 					effect='fade'
-					onSlideChange={stopSlideVideo}
+					onClick={clickHandler}
+					onSlideChange={slideChangeHandler}
 					onAutoplayTimeLeft={onAutoplayTimeLeft}
 					style={{ height: '100%' }}
 				>

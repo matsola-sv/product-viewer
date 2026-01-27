@@ -30,9 +30,9 @@ const baseStyle: SxProps<Theme> = {
 	height: '100%',
 	overflow: 'hidden',
 	position: 'relative',
-    
+
 	// For transparent images (fixes 'Fade' showing previous slide)
-	background: '#cecccc' 
+	background: '#cecccc',
 };
 
 const GallerySlide: FC<GallerySlideProps> = ({ item, style }) => {

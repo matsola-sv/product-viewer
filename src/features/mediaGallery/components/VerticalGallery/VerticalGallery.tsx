@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { Box } from '@mui/material';
+import { Box, type SxProps, type Theme } from '@mui/material';
 
 import type { Swiper as SwiperType } from 'swiper';
 import { Autoplay, EffectFade, Mousewheel, Navigation, Thumbs } from 'swiper/modules';
@@ -13,8 +13,6 @@ import { AUTOPLAY_OPTIONS } from '../../constants/gallery';
 import { useAutoplayControl } from '../../hooks/useAutoplayControl';
 import { useAutoplayProgress } from '../../hooks/useAutoplayProgress';
 import useSwiper from '../../hooks/useSwiper';
-
-import { stopSlideVideo } from '../../utils/galleryVideo';
 
 import AutoplayProgress from '../AutoplayProgress';
 import GallerySlide from '../GallerySlide';
@@ -29,19 +27,33 @@ const verticalThumbsLayout = {
 	},
 };
 
+const galleryWrapperStyle: SxProps<Theme> = {
+	width: '100%',
+	height: '100%',
+	display: 'flex',
+	overflow: 'hidden',
+	gap: '10px',
+	...noSelect,
+};
+
 const VerticalGallery = (props: GalleryProps) => {
 	const {
 		items,
+		activeIndex,
 		autoplay = false,
 		loop = false,
+		style,
 		thumbnail = { width: 96, height: 64 },
-		activeIndex,
+		onClick,
+		onSlideChange,
 	} = props;
 
 	const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
-	const { swiperInstance, setSwiperInstance } = useSwiper({
-		activeIndex,
+	const { swiperInstance, setSwiperInstance, slideChangeHandler, clickHandler } = useSwiper({
 		loop,
+		activeIndex,
+		onClick,
+		onSlideChange,
 	});
 	const { progressCircle, progressContent, onAutoplayTimeLeft } = useAutoplayProgress();
 
@@ -52,16 +64,7 @@ const VerticalGallery = (props: GalleryProps) => {
 	});
 
 	return (
-		<Box
-			sx={{
-				width: '100%',
-				height: '100%',
-				display: 'flex',
-				overflow: 'hidden',
-				gap: '10px',
-				...noSelect,
-			}}
-		>
+		<Box sx={{ ...galleryWrapperStyle, ...style }}>
 			{/* Thumbnails */}
 			<Box
 				sx={{
@@ -118,7 +121,8 @@ const VerticalGallery = (props: GalleryProps) => {
 					navigation
 					effect='fade'
 					onSwiper={setSwiperInstance}
-					onSlideChange={stopSlideVideo}
+					onClick={clickHandler}
+					onSlideChange={slideChangeHandler}
 					onAutoplayTimeLeft={onAutoplayTimeLeft}
 					style={{ height: '100%' }}
 				>
