@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 
 import { Box } from '@mui/material';
 
-import * as ROUTES from '@/app/router/routes';
+import { getPublicImage } from '@/shared/routing/urlHelpers';
 
-import { getPublicImage } from '@/shared/utils/url';
+import * as ROUTES from '@/app/router/routes';
 
 const Logo: FC = () => {
 	const { t } = useTranslation();

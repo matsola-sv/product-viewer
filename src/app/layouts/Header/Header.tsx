@@ -2,7 +2,7 @@ import type { FC } from 'react';
 
 import { AppBar, Toolbar } from '@mui/material';
 
-import type { ResponsiveValues } from '@/shared/ui/types';
+import type { ResponsiveValues } from '@/shared/ui/models';
 
 import Logo from '@/app/components/Logo';
 

@@ -1,6 +1,6 @@
 import type { SxProps, Theme } from '@mui/material';
 
-import type { ResponsiveValues } from '@/shared/ui/types';
+import type { ResponsiveValues } from '@/shared/ui/models';
 
 import { FOOTER_HEIGHTS, HEADER_HEIGHTS } from '@/app/layouts/config';
 

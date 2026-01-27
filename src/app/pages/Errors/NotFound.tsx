@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 import { Box } from '@mui/material';
 
-import EmptyState from '@/shared/ui/EmptyState';
+import EmptyState from '@/shared/ui/components/EmptyState';
 
 const NotFoundPage: FC = () => {
 	const { t } = useTranslation();

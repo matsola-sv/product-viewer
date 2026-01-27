@@ -1,6 +1,6 @@
-import { AppLanguage } from '../models/language';
+import { getPublicUrl } from '@/shared/routing/urlHelpers';
 
-import { getPublicUrl } from '@/shared/utils/url';
+import { AppLanguage } from '../models/language';
 
 import { initI18n } from '../i18n';
 
