@@ -1,12 +1,11 @@
 import { useRef } from 'react';
 
-import type { Swiper as SwiperType } from 'swiper';
-
 export const useAutoplayProgress = () => {
 	const progressCircle = useRef<HTMLElement>(null);
 	const progressContent = useRef<HTMLElement>(null);
 
-	const onAutoplayTimeLeft = (_: SwiperType, time: number, progress: number) => {
+	/** Refreshes autoplay UI (progress circle + time label) */
+	const updateProgress = (time: number, progress: number) => {
 		if (progressCircle.current) {
 			progressCircle.current.style.setProperty(
 				'--autoplay-progress', // Used by AutoplayProgress component
@@ -19,8 +18,8 @@ export const useAutoplayProgress = () => {
 	};
 
 	return {
-		progressCircle: progressCircle,
-		progressContent: progressContent,
-		onAutoplayTimeLeft,
+		progressCircle,
+		progressContent,
+		updateProgress,
 	};
 };
