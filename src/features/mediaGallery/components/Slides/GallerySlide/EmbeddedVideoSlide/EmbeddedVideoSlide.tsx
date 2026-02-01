@@ -2,7 +2,7 @@ import type { FC } from 'react';
 
 import { Box } from '@mui/material';
 
-import type { VideoItem } from '@/features/mediaGallery/models/media.types';
+import type { VideoItem } from '@/features/mediaGallery/models/media';
 import { addYouTubeApi } from '@/features/mediaGallery/utils/video';
 
 export interface EmbeddedVideoSlideProps {

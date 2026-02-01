@@ -6,19 +6,15 @@ import type { Swiper as SwiperType } from 'swiper';
 import { Autoplay, EffectFade, Mousewheel, Navigation, Thumbs } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-import type { GalleryProps } from '../gallery.types';
+import { useGallery, useGalleryContext, useSwiper } from '@/features/mediaGallery/hooks';
 
-import { AUTOPLAY_OPTIONS } from '../../constants/gallery';
+import type { GalleryProps } from '../../gallery.types';
 
-import { useAutoplayControl } from '../../hooks/useAutoplayControl';
-import { useAutoplayProgress } from '../../hooks/useAutoplayProgress';
-import useSwiper from '../../hooks/useSwiper';
+import { AUTOPLAY_OPTIONS } from '../../../constants/gallery';
 
-import AutoplayProgress from '../AutoplayProgress';
-import GallerySlide from '../GallerySlide';
-import GalleryThumbnail from '../GalleryThumbnail';
-
-import { hoverNavStyles, noSelect, stateStyles } from '../gallery.styles';
+import GallerySlide from '../../Slides/GallerySlide';
+import GalleryThumbnail from '../../Slides/GalleryThumbnail';
+import { hoverNavStyles, noSelect, stateStyles } from '../../gallery.styles';
 
 /** Center thumbnails vertically when slidesPerView="auto" */
 const verticalThumbsLayout = {
@@ -39,33 +35,29 @@ const galleryWrapperStyle: SxProps<Theme> = {
 const VerticalGallery = (props: GalleryProps) => {
 	const {
 		items,
-		activeIndex,
-		autoplay = false,
-		loop = false,
 		style,
 		thumbnail = { width: 96, height: 64 },
 		onClick,
 		onSlideChange,
+		onAutoplayTimeLeft,
 	} = props;
 
-	const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
-	const { swiperInstance, setSwiperInstance, slideChangeHandler, clickHandler } = useSwiper({
-		loop,
+	const { activeIndex, loop, autoplay } = useGalleryContext();
+	const gallery = useGallery({ onClick, onSlideChange, onAutoplayTimeLeft });
+	const swiperAdapter = useSwiper({
 		activeIndex,
-		onClick,
-		onSlideChange,
-	});
-	const { progressCircle, progressContent, onAutoplayTimeLeft } = useAutoplayProgress();
-
-	// Allow autoplay to be toggled dynamically
-	useAutoplayControl({
-		swiper: swiperInstance,
 		autoplay,
+		loop,
+		onSlideChange: gallery.handleSlideChange,
+		onClick: gallery.handleClick,
+		onAutoplayTimeLeft: gallery.handleAutoplayProgress,
 	});
+
+	// Thumbnails swiper
+	const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
 
 	return (
 		<Box sx={{ ...galleryWrapperStyle, ...style }}>
-			{/* Thumbnails */}
 			<Box
 				sx={{
 					width: thumbnail.width,
@@ -120,10 +112,10 @@ const VerticalGallery = (props: GalleryProps) => {
 					autoplay={AUTOPLAY_OPTIONS} // Cannot be changed dynamically (Swiper limitation)
 					navigation
 					effect='fade'
-					onSwiper={setSwiperInstance}
-					onClick={clickHandler}
-					onSlideChange={slideChangeHandler}
-					onAutoplayTimeLeft={onAutoplayTimeLeft}
+					onSwiper={swiperAdapter.setSwiperInstance} // Pass Swiper instance (needed for vertical thumbs timing)
+					onClick={swiperAdapter.clickHandler}
+					onSlideChange={swiperAdapter.slideChangeHandler}
+					onAutoplayTimeLeft={swiperAdapter.autoplayTimeLeftHandler}
 					style={{ height: '100%' }}
 				>
 					{items.map(item => (
@@ -131,13 +123,6 @@ const VerticalGallery = (props: GalleryProps) => {
 							<GallerySlide item={item} />
 						</SwiperSlide>
 					))}
-
-					{autoplay && (
-						<AutoplayProgress
-							progressRef={progressCircle}
-							progressLabelRef={progressContent}
-						/>
-					)}
 				</Swiper>
 			</Box>
 		</Box>

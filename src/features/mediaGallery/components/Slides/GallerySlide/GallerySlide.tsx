@@ -2,7 +2,7 @@ import { type FC } from 'react';
 
 import { Box, type SxProps, type Theme } from '@mui/material';
 
-import type { MediaItem } from '../../models/media.types';
+import type { MediaItem } from '@/features/mediaGallery/models/media';
 
 import EmbeddedVideoSlide from './EmbeddedVideoSlide';
 import ImageSlide from './ImageSlide';

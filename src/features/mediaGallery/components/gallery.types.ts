@@ -1,20 +1,18 @@
 import type { SxProps, Theme } from '@mui/material';
 
-import type { MediaItem } from '../models/media.types';
-import type { SwiperClickHandler, SwiperSlideChangeHandler } from '../models/swiper';
+import type {
+	AutoplayProgressCallback,
+	SlideChangeCallback,
+	SlideClickCallback,
+} from '../models/gallery';
+import type { MediaItem } from '../models/media';
 
 export interface GalleryProps {
 	items: MediaItem[];
-	activeIndex?: number;
-	loop?: boolean;
-	autoplay?: boolean;
+	thumbnail?: { width: number; height: number };
 	style?: SxProps<Theme>;
-	thumbnail?: {
-		width: number;
-		height: number;
-	};
 
-	onClick?: SwiperClickHandler;
-	onSlideChange?: SwiperSlideChangeHandler;
-	onAutoplayChange?: (value: boolean) => void;
+	onClick?: SlideClickCallback;
+	onSlideChange?: SlideChangeCallback;
+	onAutoplayTimeLeft?: AutoplayProgressCallback;
 }

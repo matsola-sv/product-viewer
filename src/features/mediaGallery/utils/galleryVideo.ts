@@ -1,13 +1,10 @@
-import type { Swiper as SwiperType } from 'swiper';
-
 import { isYouTubeIframe, stopNativeVideos, stopYouTubeIframe } from './video';
 
-/** Stops video on previous slide during navigation */
-export const stopSlideVideo = (swiper: SwiperType) => {
-	stopNativeVideos();
+/** Stops any playing video inside a given element. */
+export const stopSlideVideo = (container: HTMLElement) => {
+	const iframe = container?.querySelector('iframe');
 
-	const prevSlide = swiper.slides[swiper.previousIndex];
-	const iframe = prevSlide?.querySelector('iframe');
+	stopNativeVideos();
 
 	if (iframe && isYouTubeIframe(iframe)) {
 		stopYouTubeIframe(iframe);

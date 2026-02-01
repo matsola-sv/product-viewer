@@ -2,7 +2,7 @@ import type { FC } from 'react';
 
 import { Box } from '@mui/material';
 
-import type { ImageItem } from '@/features/mediaGallery/models/media.types';
+import type { ImageItem } from '@/features/mediaGallery/models/media';
 
 export interface ImageSlideProps {
 	item: ImageItem;

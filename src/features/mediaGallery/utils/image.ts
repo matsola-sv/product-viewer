@@ -1,4 +1,4 @@
-import type { ImageItem, MediaItem } from '../models/media.types';
+import type { ImageItem, MediaItem } from '../models/media';
 
 /**
  * Type guard: tells TypeScript that when this returns true,
