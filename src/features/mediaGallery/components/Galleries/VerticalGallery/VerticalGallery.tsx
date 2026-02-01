@@ -14,7 +14,7 @@ import { AUTOPLAY_OPTIONS } from '../../../constants/gallery';
 
 import GallerySlide from '../../Slides/GallerySlide';
 import GalleryThumbnail from '../../Slides/GalleryThumbnail';
-import { hoverNavStyles, noSelect, stateStyles } from '../../gallery.styles';
+import { hoverNavStyles, imageStyle, noSelect, stateStyles } from '../../gallery.styles';
 
 /** Center thumbnails vertically when slidesPerView="auto" */
 const verticalThumbsLayout = {
@@ -102,6 +102,7 @@ const VerticalGallery = (props: GalleryProps) => {
 			<Box
 				sx={{
 					overflow: 'hidden',
+					...imageStyle,
 					...hoverNavStyles,
 				}}
 			>

@@ -14,7 +14,7 @@ import { AUTOPLAY_OPTIONS } from '../../../constants/gallery';
 
 import GallerySlide from '../../Slides/GallerySlide';
 import GalleryThumbnail from '../../Slides/GalleryThumbnail';
-import { hoverNavStyles, noSelect, stateStyles } from '../../gallery.styles';
+import { hoverNavStyles, imageStyle, noSelect, stateStyles } from '../../gallery.styles';
 
 const galleryWrapperStyle: SxProps<Theme> = {
 	height: '100%',
@@ -50,7 +50,15 @@ const HorizontalGallery = (props: GalleryProps) => {
 
 	return (
 		<Box sx={{ ...galleryWrapperStyle, ...style }}>
-			<Box sx={{ flex: 1, minHeight: 0, position: 'relative', ...hoverNavStyles }}>
+			<Box
+				sx={{
+					flex: 1,
+					minHeight: 0,
+					position: 'relative',
+					...imageStyle,
+					...hoverNavStyles,
+				}}
+			>
 				<Swiper
 					initialSlide={activeIndex}
 					onSwiper={swiperAdapter.setSwiperInstance}

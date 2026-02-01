@@ -29,3 +29,12 @@ export const hoverNavStyles = {
 		opacity: 1,
 	},
 };
+
+/** Prevent image cropping */
+export const imageStyle = {
+	'& img': {
+		maxWidth: '100%',
+		maxHeight: '100vh',
+		objectFit: 'contain',
+	},
+};
