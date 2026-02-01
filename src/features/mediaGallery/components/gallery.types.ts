@@ -7,9 +7,14 @@ import type {
 } from '../models/gallery';
 import type { MediaItem } from '../models/media';
 
+export interface GalleryThumbnailProps {
+	width: number;
+	height: number;
+}
+
 export interface GalleryProps {
 	items: MediaItem[];
-	thumbnail?: { width: number; height: number };
+	thumbnail?: GalleryThumbnailProps;
 	style?: SxProps<Theme>;
 
 	onClick?: SlideClickCallback;

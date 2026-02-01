@@ -1,15 +1,25 @@
 import type { ReactNode } from 'react';
 
 import { Close } from '@mui/icons-material';
-import { Box, Dialog, DialogContent, DialogTitle, IconButton } from '@mui/material';
+import {
+	Dialog,
+	DialogContent,
+	DialogTitle,
+	IconButton,
+	type SxProps,
+	type Theme,
+} from '@mui/material';
 
 import { isInteractiveClick } from '@/shared/dom/interactive';
 
 export interface GalleryDialogProps {
 	open: boolean;
+	children: ReactNode;
 	caption?: ReactNode;
 	actions?: ReactNode;
-	children: ReactNode;
+	actionsSx?: SxProps<Theme>;
+	contentSx?: SxProps<Theme>;
+	captionSx?: SxProps<Theme>;
 	onClose: () => void;
 
 	// Custom CSS selector for elements that should not close the dialog
@@ -22,6 +32,20 @@ const captionStyle = {
 	padding: 2,
 };
 
+const contentSx = {
+	padding: 0,
+	display: 'flex',
+	justifyContent: 'center',
+	alignItems: 'center',
+
+	/**  Center and scale images in the dialog without cropping */
+	'& img': {
+		maxWidth: '100%',
+		maxHeight: '100vh',
+		objectFit: 'contain',
+	},
+};
+
 const actionsStyle = {
 	display: 'flex',
 	alignItems: 'center',
@@ -31,7 +55,7 @@ const actionsStyle = {
 };
 
 const GalleryDialog = (props: GalleryDialogProps) => {
-	const { open, caption, actions, children, onClose, skipCloseSelector } = props;
+	const { open, caption, actions, children, skipCloseSelector, onClose } = props;
 
 	/** Close when click is not on an interactive element */
 	const handleEmptyClick = (event: React.MouseEvent<HTMLDivElement>) => {
@@ -48,10 +72,10 @@ const GalleryDialog = (props: GalleryDialogProps) => {
 			fullScreen
 		>
 			<DialogTitle
-				sx={actionsStyle}
+				sx={{ ...actionsStyle, ...props.actionsSx }}
 				onClick={handleEmptyClick}
 			>
-				<Box>{actions}</Box>
+				{actions}
 				<IconButton onClick={onClose}>
 					<Close />
 				</IconButton>
@@ -59,17 +83,14 @@ const GalleryDialog = (props: GalleryDialogProps) => {
 
 			<DialogContent
 				onClick={handleEmptyClick}
-				sx={{
-					flex: 1,
-					padding: 0,
-				}}
+				sx={{ ...contentSx, ...props.contentSx }}
 			>
 				{children}
 			</DialogContent>
 
 			{caption && (
 				<DialogTitle
-					sx={captionStyle}
+					sx={{ ...captionStyle, ...props.captionSx }}
 					onClick={handleEmptyClick}
 				>
 					{caption}
