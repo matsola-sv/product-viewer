@@ -6,13 +6,20 @@ import type { AutoplayProgressState } from '../../models/gallery';
 import { GalleryContext, type GalleryContextValue } from './GalleryContext';
 
 interface GalleryProviderProps {
+	total: number;
 	activeIndex?: number;
 	loop?: boolean;
 	autoplay?: boolean;
 }
 
 export const GalleryProvider: FC<PropsWithChildren<GalleryProviderProps>> = props => {
-	const { children, activeIndex: initialIndex = 0, loop = false, autoplay = false } = props;
+	const {
+		children,
+		total,
+		loop = false,
+		autoplay = false,
+		activeIndex: initialIndex = 0,
+	} = props;
 
 	const [activeIndex, setActiveIndex] = useState(initialIndex);
 	const [isAutoplay, setIsAutoplay] = useState(autoplay);
@@ -26,6 +33,7 @@ export const GalleryProvider: FC<PropsWithChildren<GalleryProviderProps>> = prop
 
 	const value = useMemo<GalleryContextValue>(
 		() => ({
+			total: total,
 			activeIndex,
 			loop,
 			autoplay: isAutoplay,
@@ -34,7 +42,7 @@ export const GalleryProvider: FC<PropsWithChildren<GalleryProviderProps>> = prop
 			toggleAutoplay,
 			setAutoplayProgress,
 		}),
-		[activeIndex, loop, isAutoplay, autoplayProgress, toggleAutoplay],
+		[activeIndex, total, loop, isAutoplay, autoplayProgress, toggleAutoplay],
 	);
 
 	return <GalleryContext.Provider value={value}>{children}</GalleryContext.Provider>;

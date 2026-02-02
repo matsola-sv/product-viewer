@@ -13,6 +13,8 @@ import GalleryDialog from '../GalleryDialog';
 import HorizontalGallery from '../HorizontalGallery';
 import VerticalGallery from '../VerticalGallery';
 
+import { GalleryFraction } from '../../Controls';
+
 interface ExpandableGalleryProps {
 	items: MediaItem[];
 	activeIndex?: number;
@@ -83,6 +85,7 @@ const ExpandableGallery: FC<ExpandableGalleryProps> = props => {
 					<GalleryActions
 						actionClass={actionClass}
 						actionStyle={galleryActionStyle}
+						left={<GalleryFraction {...galleryActionStyle} />}
 					/>
 				}
 				open={isDialogOpen}
