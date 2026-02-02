@@ -5,11 +5,14 @@ import { Box, type SxProps, type Theme } from '@mui/material';
 import { AutoplayProgress, AutoplayToggle } from '@/features/mediaGallery/components/Controls';
 import { useAutoplayProgress, useGalleryContext } from '@/features/mediaGallery/hooks';
 
+import type { GalleryActionProps } from '../actions.types';
+
 interface GalleryActionsProps {
 	actionClass?: string;
 	left?: ReactNode;
 	right?: ReactNode;
 	height?: number;
+	actionStyle?: GalleryActionProps;
 	style?: SxProps<Theme>;
 }
 
@@ -67,6 +70,7 @@ const GalleryActions: FC<GalleryActionsProps> = props => {
 					<AutoplayToggle
 						autoplay={autoplay}
 						onToggle={toggleAutoplay}
+						{...props.actionStyle}
 					/>,
 					actionClass,
 				)}
@@ -76,6 +80,7 @@ const GalleryActions: FC<GalleryActionsProps> = props => {
 						<AutoplayProgress
 							progressRef={progressCircle}
 							progressLabelRef={progressContent}
+							{...props.actionStyle}
 						/>,
 						actionClass,
 					)}

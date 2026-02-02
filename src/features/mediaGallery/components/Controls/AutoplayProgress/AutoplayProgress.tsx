@@ -1,16 +1,12 @@
 import { type RefObject, forwardRef } from 'react';
 
-import { Box, type SxProps, type Theme } from '@mui/material';
+import { Box } from '@mui/material';
 
-interface AutoplayProgressProps {
+import type { GalleryActionProps } from '../actions.types';
+
+interface AutoplayProgressProps extends GalleryActionProps {
 	progressRef: RefObject<HTMLElement | null>;
 	progressLabelRef: RefObject<HTMLElement | null>;
-	size?: number;
-	bgColor?: string;
-	hoverColor?: string;
-	circleColor?: string;
-	textColor?: string;
-	styles?: SxProps<Theme>;
 }
 
 const AutoplayProgress = forwardRef<HTMLDivElement, AutoplayProgressProps>((props, ref) => {
@@ -18,14 +14,16 @@ const AutoplayProgress = forwardRef<HTMLDivElement, AutoplayProgressProps>((prop
 		progressRef,
 		progressLabelRef,
 		size = 36,
-		bgColor = 'rgba(33,43,54,0.9)',
-		hoverColor = '#3d1a9e',
-		circleColor = '#fff',
-		textColor = '#fff',
+		fontSize,
+		color,
+		bgColor,
+		hoverColor,
+		strokeColor,
+		strokeWidth = 2,
+		fontWeight,
 		styles,
 	} = props;
 
-	const strokeWidth = 2;
 	const radius = size / 2 - strokeWidth - 1;
 	const circumference = 2 * Math.PI * radius;
 	const strokeDashoffset = `calc(${circumference}px * (1 - var(--autoplay-progress)))`;
@@ -42,7 +40,7 @@ const AutoplayProgress = forwardRef<HTMLDivElement, AutoplayProgressProps>((prop
 				bgcolor: bgColor,
 				borderRadius: 0,
 				overflow: 'visible',
-				fontWeight: 'bold',
+				fontWeight: fontWeight,
 				transition: 'background-color 0.2s ease',
 				'&:hover': { bgcolor: hoverColor },
 				position: 'relative',
@@ -60,7 +58,7 @@ const AutoplayProgress = forwardRef<HTMLDivElement, AutoplayProgressProps>((prop
 					width: '100%',
 					height: '100%',
 					fill: 'none',
-					stroke: circleColor,
+					stroke: strokeColor,
 					strokeWidth: strokeWidth,
 					transform: 'rotate(-90deg)',
 					'& circle': {
@@ -83,8 +81,8 @@ const AutoplayProgress = forwardRef<HTMLDivElement, AutoplayProgressProps>((prop
 				sx={{
 					position: 'relative',
 					zIndex: 1,
-					fontSize: size * 0.4, // 40% of the button size
-					color: textColor,
+					fontSize: fontSize,
+					color: color,
 					lineHeight: 1,
 				}}
 			/>

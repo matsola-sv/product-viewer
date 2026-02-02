@@ -6,6 +6,7 @@ import GalleryActions from '@/features/mediaGallery/components/Controls/GalleryA
 import { GalleryProvider } from '@/features/mediaGallery/context/gallery';
 import type { MediaItem } from '@/features/mediaGallery/models/media';
 
+import type { GalleryActionProps } from '../../Controls/actions.types';
 import type { GalleryThumbnailProps } from '../../gallery.types';
 
 import GalleryDialog from '../GalleryDialog';
@@ -19,11 +20,23 @@ interface ExpandableGalleryProps {
 	style?: SxProps<Theme>;
 }
 
+/** Base style for gallery control action elements */
+const galleryActionStyle: GalleryActionProps = {
+	size: 36,
+	bgColor: 'rgba(33,43,54,0.9)',
+	hoverColor: '#3d1a9e',
+	color: '#fff',
+	fontSize: 16,
+	fontWeight: 400,
+	strokeColor: '#fff',
+	strokeWidth: 2,
+};
+
 const ExpandableGallery: FC<ExpandableGalleryProps> = props => {
 	const actionClass = 'g-action';
 	const skipCloseSelector = `.swiper-button-prev, .swiper-button-next, .${actionClass}`;
-	const { items, thumbnail, style, activeIndex = 0 } = props;
 
+	const { items, thumbnail, style, activeIndex: initIndex = 0 } = props;
 	const [isDialogOpen, setIsDialogOpen] = useState(false);
 
 	const openDialog = (): void => {
@@ -36,8 +49,9 @@ const ExpandableGallery: FC<ExpandableGalleryProps> = props => {
 
 	return (
 		<GalleryProvider
+			total={items.length}
 			autoplay={false}
-			activeIndex={activeIndex}
+			activeIndex={initIndex}
 		>
 			<Box
 				sx={{
@@ -48,7 +62,10 @@ const ExpandableGallery: FC<ExpandableGalleryProps> = props => {
 					...style,
 				}}
 			>
-				<GalleryActions actionClass={actionClass} />
+				<GalleryActions
+					actionClass={actionClass}
+					actionStyle={galleryActionStyle}
+				/>
 
 				<Box sx={{ height: 500 }}>
 					<HorizontalGallery
@@ -62,7 +79,12 @@ const ExpandableGallery: FC<ExpandableGalleryProps> = props => {
 
 			<GalleryDialog
 				skipCloseSelector={skipCloseSelector}
-				actions={<GalleryActions actionClass={actionClass} />}
+				actions={
+					<GalleryActions
+						actionClass={actionClass}
+						actionStyle={galleryActionStyle}
+					/>
+				}
 				open={isDialogOpen}
 				onClose={closeDialog}
 				actionsSx={{

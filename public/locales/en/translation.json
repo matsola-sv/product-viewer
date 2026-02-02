@@ -16,8 +16,8 @@
 	"productMedia": {
 		"autoPlayToggle": {
 			"tooltip": {
-				"on": "AutoPlay ON",
-				"off": "AutoPlay OFF"
+				"on": "Auto play ON",
+				"off": "Auto play OFF"
 			}
 		}
 	}
