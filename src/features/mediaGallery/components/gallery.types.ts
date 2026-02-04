@@ -15,8 +15,8 @@ export interface GalleryThumbnailProps {
 export interface GalleryProps {
 	items: MediaItem[];
 	thumbnail?: GalleryThumbnailProps;
+	enableZoom?: boolean;
 	style?: SxProps<Theme>;
-
 	onClick?: SlideClickCallback;
 	onSlideChange?: SlideChangeCallback;
 	onAutoplayTimeLeft?: AutoplayProgressCallback;

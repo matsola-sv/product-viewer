@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Box, type SxProps, type Theme } from '@mui/material';
 
 import type { Swiper as SwiperType } from 'swiper';
-import { Autoplay, EffectFade, Mousewheel, Navigation, Thumbs } from 'swiper/modules';
+import { Mousewheel, Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { useGallery, useGalleryContext, useSwiper } from '@/features/mediaGallery/hooks';
@@ -35,6 +35,7 @@ const galleryWrapperStyle: SxProps<Theme> = {
 const VerticalGallery = (props: GalleryProps) => {
 	const {
 		items,
+		enableZoom = false,
 		style,
 		thumbnail = { width: 96, height: 64 },
 		onClick,
@@ -42,15 +43,18 @@ const VerticalGallery = (props: GalleryProps) => {
 		onAutoplayTimeLeft,
 	} = props;
 
-	const { activeIndex, loop, autoplay } = useGalleryContext();
-	const gallery = useGallery({ onClick, onSlideChange, onAutoplayTimeLeft });
+	const { activeIndex, loop, autoplay, zoomed } = useGalleryContext();
+	const gallery = useGallery({ enableZoom, onClick, onSlideChange, onAutoplayTimeLeft });
 	const swiperAdapter = useSwiper({
 		activeIndex,
 		autoplay,
 		loop,
-		onSlideChange: gallery.handleSlideChange,
+		enableZoom,
+		zoomed,
 		onClick: gallery.handleClick,
+		onSlideChange: gallery.handleSlideChange,
 		onAutoplayTimeLeft: gallery.handleAutoplayProgress,
+		onZoomChange: gallery.handleZoomChange,
 	});
 
 	// Thumbnails swiper
@@ -102,17 +106,19 @@ const VerticalGallery = (props: GalleryProps) => {
 			<Box
 				sx={{
 					overflow: 'hidden',
+					cursor: gallery.cursor,
 					...imageStyle,
 					...hoverNavStyles,
 				}}
 			>
 				<Swiper
 					initialSlide={activeIndex}
-					modules={[Navigation, Thumbs, Autoplay, EffectFade]}
+					modules={swiperAdapter.swiperModules}
 					thumbs={{ swiper: thumbsSwiper }}
 					autoplay={AUTOPLAY_OPTIONS} // Cannot be changed dynamically (Swiper limitation)
 					navigation
-					effect='fade'
+					effect={swiperAdapter.swiperEffect}
+					zoom={swiperAdapter.zoomConfig}
 					onSwiper={swiperAdapter.setSwiperInstance} // Pass Swiper instance (needed for vertical thumbs timing)
 					onClick={swiperAdapter.clickHandler}
 					onSlideChange={swiperAdapter.slideChangeHandler}
@@ -121,7 +127,10 @@ const VerticalGallery = (props: GalleryProps) => {
 				>
 					{items.map(item => (
 						<SwiperSlide key={item.id}>
-							<GallerySlide item={item} />
+							<GallerySlide
+								item={item}
+								enableZoom={enableZoom}
+							/>
 						</SwiperSlide>
 					))}
 				</Swiper>

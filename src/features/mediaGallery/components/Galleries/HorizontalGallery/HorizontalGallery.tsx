@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Box, type SxProps, type Theme } from '@mui/material';
 
 import type { Swiper as SwiperType } from 'swiper';
-import { Autoplay, EffectFade, Navigation, Thumbs } from 'swiper/modules';
+import { Navigation, Thumbs } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { useGallery, useGalleryContext, useSwiper } from '@/features/mediaGallery/hooks';
@@ -27,6 +27,7 @@ const galleryWrapperStyle: SxProps<Theme> = {
 const HorizontalGallery = (props: GalleryProps) => {
 	const {
 		items,
+		enableZoom = false,
 		thumbnail = { width: 96, height: 74 },
 		style,
 		onClick,
@@ -34,15 +35,18 @@ const HorizontalGallery = (props: GalleryProps) => {
 		onAutoplayTimeLeft,
 	} = props;
 
-	const { activeIndex, loop, autoplay } = useGalleryContext();
-	const gallery = useGallery({ onClick, onSlideChange, onAutoplayTimeLeft });
+	const { activeIndex, loop, autoplay, zoomed } = useGalleryContext();
+	const gallery = useGallery({ enableZoom, onClick, onSlideChange, onAutoplayTimeLeft });
 	const swiperAdapter = useSwiper({
 		activeIndex,
 		autoplay,
 		loop,
-		onSlideChange: gallery.handleSlideChange,
+		enableZoom,
+		zoomed,
 		onClick: gallery.handleClick,
+		onSlideChange: gallery.handleSlideChange,
 		onAutoplayTimeLeft: gallery.handleAutoplayProgress,
+		onZoomChange: gallery.handleZoomChange,
 	});
 
 	// Thumbnails swiper
@@ -55,20 +59,22 @@ const HorizontalGallery = (props: GalleryProps) => {
 					flex: 1,
 					minHeight: 0,
 					position: 'relative',
+					cursor: gallery.cursor,
 					...imageStyle,
 					...hoverNavStyles,
 				}}
 			>
 				<Swiper
 					initialSlide={activeIndex}
-					onSwiper={swiperAdapter.setSwiperInstance}
-					modules={[Navigation, Thumbs, Autoplay, EffectFade]}
-					navigation
+					modules={swiperAdapter.swiperModules}
 					thumbs={{ swiper: thumbsSwiper }}
-					autoplay={AUTOPLAY_OPTIONS}
+					autoplay={AUTOPLAY_OPTIONS} // Cannot be changed dynamically (Swiper limitation)
+					navigation
 					loop={loop}
 					slidesPerView={1}
-					effect='fade'
+					effect={swiperAdapter.swiperEffect}
+					zoom={swiperAdapter.zoomConfig}
+					onSwiper={swiperAdapter.setSwiperInstance}
 					onClick={swiperAdapter.clickHandler}
 					onSlideChange={swiperAdapter.slideChangeHandler}
 					onAutoplayTimeLeft={swiperAdapter.autoplayTimeLeftHandler}
@@ -76,7 +82,10 @@ const HorizontalGallery = (props: GalleryProps) => {
 				>
 					{items.map(item => (
 						<SwiperSlide key={item.id}>
-							<GallerySlide item={item} />
+							<GallerySlide
+								item={item}
+								enableZoom={enableZoom}
+							/>
 						</SwiperSlide>
 					))}
 				</Swiper>

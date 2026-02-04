@@ -16,3 +16,4 @@ export interface AutoplayProgressState {
 export type AutoplayProgressCallback = (time: number, progress: number) => void;
 export type SlideChangeCallback = (event: SlideStateChange) => void;
 export type SlideClickCallback = (event: SlideState) => void;
+export type ZoomChangeCallback = (zoomed: boolean) => void;

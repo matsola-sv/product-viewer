@@ -21,28 +21,39 @@ export const GalleryProvider: FC<PropsWithChildren<GalleryProviderProps>> = prop
 		activeIndex: initialIndex = 0,
 	} = props;
 
+	const [zoomed, setZoomed] = useState(false);
 	const [activeIndex, setActiveIndex] = useState(initialIndex);
-	const [isAutoplay, setIsAutoplay] = useState(autoplay);
+	const [autoplayState, setAutoplayState] = useState(autoplay);
 	const [autoplayProgress, setAutoplayProgress] = useState<AutoplayProgressState | null>(
 		null,
 	);
 
-	const toggleAutoplay = useCallback(() => {
-		setIsAutoplay(prev => !prev);
-	}, []);
+	const toggleAutoplay = useCallback(() => setAutoplayState(prev => !prev), []);
+	const toggleZoom = useCallback(() => setZoomed(prev => !prev), []);
 
 	const value = useMemo<GalleryContextValue>(
 		() => ({
-			total: total,
+			total,
 			activeIndex,
 			loop,
-			autoplay: isAutoplay,
+			autoplay: autoplayState,
+			zoomed,
 			autoplayProgress,
 			setActiveIndex,
-			toggleAutoplay,
 			setAutoplayProgress,
+			toggleAutoplay,
+			toggleZoom,
 		}),
-		[activeIndex, total, loop, isAutoplay, autoplayProgress, toggleAutoplay],
+		[
+			total,
+			activeIndex,
+			loop,
+			autoplayState,
+			zoomed,
+			autoplayProgress,
+			toggleAutoplay,
+			toggleZoom,
+		],
 	);
 
 	return <GalleryContext.Provider value={value}>{children}</GalleryContext.Provider>;

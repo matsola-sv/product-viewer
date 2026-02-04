@@ -10,8 +10,21 @@ import VideoSlide from './VideoSlide';
 
 interface GallerySlideProps {
 	item: MediaItem;
+	enableZoom?: boolean;
 	style?: SxProps<Theme>;
 }
+
+const baseStyle: SxProps<Theme> = {
+	width: '100%',
+	height: '100%',
+	display: 'flex',
+	justifyContent: 'center',
+	alignItems: 'center',
+	position: 'relative',
+
+	// For transparent images (fixes 'Fade' showing previous slide)
+	background: '#cecccc',
+};
 
 const renderMediaSlide = (item: MediaItem) => {
 	if (item.type === 'image') {
@@ -25,18 +38,18 @@ const renderMediaSlide = (item: MediaItem) => {
 	return <VideoSlide item={item} />;
 };
 
-const baseStyle: SxProps<Theme> = {
-	width: '100%',
-	height: '100%',
-	overflow: 'hidden',
-	position: 'relative',
+const GallerySlide: FC<GallerySlideProps> = ({ item, enableZoom = false, style }) => {
+	const zoomClass = 'swiper-zoom-container';
+	const className = enableZoom && item.type === 'image' ? zoomClass : '';
 
-	// For transparent images (fixes 'Fade' showing previous slide)
-	background: '#cecccc',
-};
-
-const GallerySlide: FC<GallerySlideProps> = ({ item, style }) => {
-	return <Box sx={{ ...baseStyle, ...style }}>{renderMediaSlide(item)}</Box>;
+	return (
+		<Box
+			className={className}
+			sx={{ ...baseStyle, ...style }}
+		>
+			{renderMediaSlide(item)}
+		</Box>
+	);
 };
 
 export default GallerySlide;

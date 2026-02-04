@@ -5,6 +5,7 @@ import 'swiper/css';
 import 'swiper/css/effect-fade';
 import 'swiper/css/navigation';
 import 'swiper/css/thumbs';
+import 'swiper/css/zoom';
 
 import LangProvider from '@/app/providers/LangProvider';
 

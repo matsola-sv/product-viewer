@@ -8,10 +8,11 @@ export interface GalleryContextValue {
 	loop: boolean;
 	autoplay: boolean;
 	autoplayProgress: AutoplayProgressState | null;
-
+	zoomed: boolean;
 	setActiveIndex: (index: number) => void;
 	setAutoplayProgress: (value: AutoplayProgressState) => void;
 	toggleAutoplay: () => void;
+	toggleZoom: () => void;
 }
 
 export const GalleryContext = createContext<GalleryContextValue | null>(null);
