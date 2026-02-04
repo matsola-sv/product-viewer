@@ -27,16 +27,22 @@ export interface GalleryDialogProps {
 	skipCloseSelector?: string;
 }
 
-const captionStyle = {
+const captionStyle: SxProps<Theme> = {
 	borderTop: '1px solid rgba(255,255,255,0.12)',
 	padding: 2,
 };
 
-const contentSx = {
+const contentSx: SxProps<Theme> = {
 	padding: 0,
 	display: 'flex',
 	justifyContent: 'center',
-	alignItems: 'center',
+
+	/** Fix horizontal gallery thumbnails in dialog
+	 * - flexDirection: 'column' + height: '100%' ensures correct layout
+	 * - alignItems: 'center' is intentionally omitted, it breaks the layout
+	 */
+	flexDirection: 'column',
+	height: '100%',
 
 	/**  Center and scale images in the dialog without cropping */
 	'& img': {
@@ -46,7 +52,7 @@ const contentSx = {
 	},
 };
 
-const actionsStyle = {
+const actionsStyle: SxProps<Theme> = {
 	display: 'flex',
 	alignItems: 'center',
 	justifyContent: 'space-between',
