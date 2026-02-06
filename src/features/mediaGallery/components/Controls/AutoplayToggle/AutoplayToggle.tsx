@@ -25,7 +25,7 @@ const AutoplayToggle: FC<AutoplayToggleProps> = props => {
 	} = props;
 
 	const { t } = useTranslation();
-	const keyPrefix = 'productMedia.autoPlayToggle.tooltip';
+	const keyPrefix = 'productMedia.autoPlay.toggle.tooltip';
 	const getTitle = () => (autoplay ? t(`${keyPrefix}.off`) : t(`${keyPrefix}.on`));
 
 	return (

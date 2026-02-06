@@ -3,6 +3,7 @@ import { type FC, useState } from 'react';
 import { Box, type SxProps, type Theme } from '@mui/material';
 
 import GalleryActions from '@/features/mediaGallery/components/Controls/GalleryActions';
+import { AutoplayTimeLeftProvider } from '@/features/mediaGallery/context';
 import { GalleryProvider } from '@/features/mediaGallery/context/gallery';
 import type { MediaItem } from '@/features/mediaGallery/models/media';
 
@@ -50,58 +51,65 @@ const ExpandableGallery: FC<ExpandableGalleryProps> = props => {
 	};
 
 	return (
-		<GalleryProvider
-			total={items.length}
-			autoplay={false}
-			activeIndex={initIndex}
-		>
-			<Box
-				sx={{
-					width: '100%',
-					display: 'flex',
-					flexDirection: 'column',
-					gap: 2,
-					...style,
-				}}
+		<>
+			<GalleryProvider
+				total={items.length}
+				autoplay={false}
+				activeIndex={initIndex}
 			>
-				<GalleryActions
-					actionClass={actionClass}
-					actionStyle={galleryActionStyle}
-				/>
+				<Box
+					sx={{
+						width: '100%',
+						display: 'flex',
+						flexDirection: 'column',
+						gap: 2,
+						...style,
+					}}
+				>
+					<AutoplayTimeLeftProvider>
+						<GalleryActions
+							actionClass={actionClass}
+							actionStyle={galleryActionStyle}
+						/>
 
-				<Box sx={{ height: 500 }}>
-					<HorizontalGallery
-						items={items}
-						thumbnail={thumbnail}
-						style={{ cursor: 'grab' }}
-						onClick={openDialog}
-					/>
+						<Box sx={{ height: 500 }}>
+							<HorizontalGallery
+								items={items}
+								thumbnail={thumbnail}
+								style={{ cursor: 'grab' }}
+								onClick={openDialog}
+							/>
+						</Box>
+					</AutoplayTimeLeftProvider>
 				</Box>
-			</Box>
 
-			<GalleryDialog
-				skipCloseSelector={skipCloseSelector}
-				actions={
-					<GalleryActions
-						actionClass={actionClass}
-						actionStyle={galleryActionStyle}
-						left={<GalleryFraction {...galleryActionStyle} />}
-					/>
-				}
-				open={isDialogOpen}
-				onClose={closeDialog}
-				actionsSx={{
-					width: '100%',
-					backgroundColor: '#eee',
-					boxSizing: 'border-box',
-				}}
-			>
-				<VerticalGallery
-					items={items}
-					thumbnail={thumbnail}
-				/>
-			</GalleryDialog>
-		</GalleryProvider>
+				<AutoplayTimeLeftProvider>
+					<GalleryDialog
+						skipCloseSelector={skipCloseSelector}
+						actions={
+							<GalleryActions
+								actionClass={actionClass}
+								actionStyle={galleryActionStyle}
+								left={<GalleryFraction {...galleryActionStyle} />}
+							/>
+						}
+						open={isDialogOpen}
+						onClose={closeDialog}
+						actionsSx={{
+							width: '100%',
+							backgroundColor: '#eee',
+							boxSizing: 'border-box',
+						}}
+					>
+						<VerticalGallery
+							enableZoom={true}
+							items={items}
+							thumbnail={thumbnail}
+						/>
+					</GalleryDialog>
+				</AutoplayTimeLeftProvider>
+			</GalleryProvider>
+		</>
 	);
 };
 

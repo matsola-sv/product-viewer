@@ -1,8 +1,6 @@
 import type { FC, PropsWithChildren } from 'react';
 import { useCallback, useMemo, useState } from 'react';
 
-import type { AutoplayProgressState } from '../../models/gallery';
-
 import { GalleryContext, type GalleryContextValue } from './GalleryContext';
 
 interface GalleryProviderProps {
@@ -24,9 +22,6 @@ export const GalleryProvider: FC<PropsWithChildren<GalleryProviderProps>> = prop
 	const [zoomed, setZoomed] = useState(false);
 	const [activeIndex, setActiveIndex] = useState(initialIndex);
 	const [autoplayState, setAutoplayState] = useState(autoplay);
-	const [autoplayProgress, setAutoplayProgress] = useState<AutoplayProgressState | null>(
-		null,
-	);
 
 	const toggleAutoplay = useCallback(() => setAutoplayState(prev => !prev), []);
 	const toggleZoom = useCallback(() => setZoomed(prev => !prev), []);
@@ -36,24 +31,13 @@ export const GalleryProvider: FC<PropsWithChildren<GalleryProviderProps>> = prop
 			total,
 			activeIndex,
 			loop,
-			autoplay: autoplayState,
 			zoomed,
-			autoplayProgress,
+			autoplay: autoplayState,
 			setActiveIndex,
-			setAutoplayProgress,
 			toggleAutoplay,
 			toggleZoom,
 		}),
-		[
-			total,
-			activeIndex,
-			loop,
-			autoplayState,
-			zoomed,
-			autoplayProgress,
-			toggleAutoplay,
-			toggleZoom,
-		],
+		[total, activeIndex, loop, autoplayState, zoomed, toggleAutoplay, toggleZoom],
 	);
 
 	return <GalleryContext.Provider value={value}>{children}</GalleryContext.Provider>;

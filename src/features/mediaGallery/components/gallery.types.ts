@@ -1,10 +1,6 @@
 import type { SxProps, Theme } from '@mui/material';
 
-import type {
-	AutoplayProgressCallback,
-	SlideChangeCallback,
-	SlideClickCallback,
-} from '../models/gallery';
+import type { AutoplayTimeLeftFn, SlideChangeFn, SlideClickFn } from '../models/gallery';
 import type { MediaItem } from '../models/media';
 
 export interface GalleryThumbnailProps {
@@ -17,7 +13,7 @@ export interface GalleryProps {
 	thumbnail?: GalleryThumbnailProps;
 	enableZoom?: boolean;
 	style?: SxProps<Theme>;
-	onClick?: SlideClickCallback;
-	onSlideChange?: SlideChangeCallback;
-	onAutoplayTimeLeft?: AutoplayProgressCallback;
+	onClick?: SlideClickFn;
+	onSlideChange?: SlideChangeFn;
+	onAutoplayTimeLeft?: AutoplayTimeLeftFn;
 }

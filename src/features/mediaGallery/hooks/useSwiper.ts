@@ -5,10 +5,10 @@ import { Autoplay, EffectFade, Navigation, Thumbs, Zoom } from 'swiper/modules';
 import type { SwiperModule, SwiperOptions, ZoomOptions } from 'swiper/types';
 
 import type {
-	AutoplayProgressCallback,
-	SlideChangeCallback,
-	SlideClickCallback,
-	ZoomChangeCallback,
+	AutoplayTimeLeftFn,
+	SlideChangeFn,
+	SlideClickFn,
+	ZoomChangeFn,
 } from '../models/gallery';
 
 export type SwiperHandler = (swiper: SwiperType) => void;
@@ -24,10 +24,10 @@ interface UseSwiperParams {
 	loop: boolean;
 	zoomed?: boolean;
 	enableZoom?: boolean;
-	onClick?: SlideClickCallback;
-	onSlideChange?: SlideChangeCallback;
-	onAutoplayTimeLeft?: AutoplayProgressCallback;
-	onZoomChange?: ZoomChangeCallback;
+	onClick?: SlideClickFn;
+	onSlideChange?: SlideChangeFn;
+	onAutoplayTimeLeft?: AutoplayTimeLeftFn;
+	onZoomChange?: ZoomChangeFn;
 }
 
 interface UseSwiperResult {
@@ -60,6 +60,7 @@ export const useSwiper = (params: UseSwiperParams): UseSwiperResult => {
 	const swiperModules = useMemo(() => {
 		const baseModules = [Navigation, Thumbs, Autoplay];
 
+		// NOTE: Fade effect conflicts with Zoom, so only one is enabled
 		if (enableZoom) {
 			return [...baseModules, Zoom];
 		}

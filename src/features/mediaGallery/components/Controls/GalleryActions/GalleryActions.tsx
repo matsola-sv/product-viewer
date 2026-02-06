@@ -1,11 +1,13 @@
-import { Children, type FC, type ReactNode, useEffect } from 'react';
+import { Children, type FC, type ReactNode } from 'react';
 
 import { Box, type SxProps, type Theme } from '@mui/material';
 
-import { AutoplayProgress, AutoplayToggle } from '@/features/mediaGallery/components/Controls';
-import { useAutoplayProgress, useGalleryContext } from '@/features/mediaGallery/hooks';
+import { AutoplayToggle } from '@/features/mediaGallery/components/Controls';
+import { useGalleryContext } from '@/features/mediaGallery/hooks';
 
 import type { GalleryActionProps } from '../actions.types';
+
+import AutoplayProgress from '../AutoplayProgress';
 
 interface GalleryActionsProps {
 	actionClass?: string;
@@ -38,17 +40,7 @@ const wrapActionChildren = (children: ReactNode, className: string) => {
 
 const GalleryActions: FC<GalleryActionsProps> = props => {
 	const { left, right, style, height = 50, actionClass = 'g-action' } = props;
-
-	const { autoplay, toggleAutoplay, autoplayProgress } = useGalleryContext();
-	const { progressCircle, progressContent, updateProgress } = useAutoplayProgress();
-
-	/** Sync context state and UI progress */
-	useEffect(() => {
-		if (!autoplay || !autoplayProgress) {
-			return;
-		}
-		updateProgress(autoplayProgress.time, autoplayProgress.progress);
-	}, [autoplay, autoplayProgress, updateProgress]);
+	const { autoplay, toggleAutoplay } = useGalleryContext();
 
 	return (
 		<Box
@@ -77,11 +69,7 @@ const GalleryActions: FC<GalleryActionsProps> = props => {
 
 				{autoplay &&
 					wrapActionElement(
-						<AutoplayProgress
-							progressRef={progressCircle}
-							progressLabelRef={progressContent}
-							{...props.actionStyle}
-						/>,
+						<AutoplayProgress {...props.actionStyle} />,
 						actionClass,
 					)}
 			</Box>

@@ -14,10 +14,15 @@
 		}
 	},
 	"productMedia": {
-		"autoPlayToggle": {
-			"tooltip": {
-				"on": "Auto play ON",
-				"off": "Auto play OFF"
+		"autoPlay": {
+			"toggle": {
+				"tooltip": {
+					"on": "Auto play ON",
+					"off": "Auto play OFF"
+				}
+			},
+			"progress": {
+				"seconds": "s"
 			}
 		}
 	}

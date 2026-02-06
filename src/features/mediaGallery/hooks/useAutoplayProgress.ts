@@ -1,25 +1,33 @@
-import { useRef } from 'react';
+import { useContext } from 'react';
 
-export const useAutoplayProgress = () => {
-	const progressCircle = useRef<HTMLElement>(null);
-	const progressContent = useRef<HTMLElement>(null);
+import type { AutoplayResetTimeLeftFn, AutoplayTimeLeftFn } from '../models/gallery';
 
-	/** Refreshes autoplay UI (progress circle + time label) */
-	const updateProgress = (time: number, progress: number) => {
-		if (progressCircle.current) {
-			progressCircle.current.style.setProperty(
-				'--autoplay-progress', // Used by AutoplayProgress component
-				String(1 - progress),
-			);
-		}
-		if (progressContent.current) {
-			progressContent.current.textContent = `${Math.ceil(time / 1000)}s`;
-		}
-	};
+import { AutoplayTimeLeftContext } from '../context';
 
-	return {
-		progressCircle,
-		progressContent,
-		updateProgress,
-	};
+export interface AutoplayTimeLeftResult {
+	seconds: number;
+	progress: number; // [0-1]
+	setTimeLeft: AutoplayTimeLeftFn;
+	resetTimeLeft: AutoplayResetTimeLeftFn;
+}
+
+/** */
+export const useAutoplayTimeLeft = (): AutoplayTimeLeftResult => {
+	const context = useContext(AutoplayTimeLeftContext);
+
+	// Prevent errors if gallery is used without autoplay progress provider
+	if (!context) {
+		return {
+			seconds: 0,
+			progress: 0,
+			setTimeLeft: () => {},
+			resetTimeLeft: () => {},
+		};
+	}
+
+	const { timeLeft, setTimeLeft, resetTimeLeft } = context;
+	const { time, progress } = timeLeft;
+	const seconds = Math.ceil(time / 1000);
+
+	return { seconds, progress, setTimeLeft, resetTimeLeft };
 };

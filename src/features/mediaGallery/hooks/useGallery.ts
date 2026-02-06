@@ -1,30 +1,31 @@
 import { useCallback, useMemo } from 'react';
 
 import type {
-	AutoplayProgressCallback,
-	SlideChangeCallback,
-	SlideClickCallback,
+	AutoplayTimeLeftFn,
+	SlideChangeFn,
+	SlideClickFn,
 	SlideState,
 	SlideStateChange,
-	ZoomChangeCallback,
+	ZoomChangeFn,
 } from '../models/gallery';
 
 import { stopSlideVideo } from '../utils/galleryVideo';
 
+import { useAutoplayTimeLeft } from './useAutoplayProgress';
 import { useGalleryContext } from './useGalleryContext';
 
 interface UseGalleryParams {
 	enableZoom?: boolean;
-	onClick?: SlideClickCallback;
-	onSlideChange?: SlideChangeCallback;
-	onAutoplayTimeLeft?: AutoplayProgressCallback;
+	onClick?: SlideClickFn;
+	onSlideChange?: SlideChangeFn;
+	onAutoplayTimeLeft?: AutoplayTimeLeftFn;
 }
 
 interface UseGalleryResult {
-	handleClick: SlideClickCallback;
-	handleSlideChange: SlideChangeCallback;
-	handleAutoplayProgress: AutoplayProgressCallback;
-	handleZoomChange: ZoomChangeCallback;
+	handleClick: SlideClickFn;
+	handleSlideChange: SlideChangeFn;
+	handleAutoplayProgress: AutoplayTimeLeftFn;
+	handleZoomChange: ZoomChangeFn;
 	cursor?: string;
 }
 
@@ -39,7 +40,8 @@ export const useGallery = (params: UseGalleryParams): UseGalleryResult => {
 	const { enableZoom = false, onClick, onSlideChange, onAutoplayTimeLeft } = params;
 
 	/** Context setters for updating gallery state */
-	const { setActiveIndex, setAutoplayProgress, zoomed, toggleZoom } = useGalleryContext();
+	const { setActiveIndex, zoomed, toggleZoom } = useGalleryContext();
+	const { setTimeLeft } = useAutoplayTimeLeft();
 
 	const cursor = useMemo(() => {
 		if (!enableZoom) {
@@ -81,10 +83,10 @@ export const useGallery = (params: UseGalleryParams): UseGalleryResult => {
 
 	const handleAutoplayProgress = useCallback(
 		(time: number, progress: number) => {
-			setAutoplayProgress({ time, progress });
+			setTimeLeft(time, progress);
 			onAutoplayTimeLeft?.(time, progress);
 		},
-		[setAutoplayProgress, onAutoplayTimeLeft],
+		[onAutoplayTimeLeft, setTimeLeft],
 	);
 
 	const handleZoomChange = useCallback(

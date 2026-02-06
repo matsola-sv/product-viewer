@@ -1,18 +1,14 @@
-import { type RefObject, forwardRef } from 'react';
+import { type FC } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { Box } from '@mui/material';
 
+import { useAutoplayTimeLeft } from '@/features/mediaGallery/hooks';
+
 import type { GalleryActionProps } from '../actions.types';
 
-interface AutoplayProgressProps extends GalleryActionProps {
-	progressRef: RefObject<HTMLElement | null>;
-	progressLabelRef: RefObject<HTMLElement | null>;
-}
-
-const AutoplayProgress = forwardRef<HTMLDivElement, AutoplayProgressProps>((props, ref) => {
+const AutoplayProgress: FC<GalleryActionProps> = props => {
 	const {
-		progressRef,
-		progressLabelRef,
 		size = 36,
 		fontSize,
 		color,
@@ -24,13 +20,18 @@ const AutoplayProgress = forwardRef<HTMLDivElement, AutoplayProgressProps>((prop
 		styles,
 	} = props;
 
+	const { t } = useTranslation();
+	const { seconds, progress } = useAutoplayTimeLeft();
+
 	const radius = size / 2 - strokeWidth - 1;
 	const circumference = 2 * Math.PI * radius;
-	const strokeDashoffset = `calc(${circumference}px * (1 - var(--autoplay-progress)))`;
+	const strokeDashoffset = circumference * progress;
+
+	const secondLabel = t('productMedia.autoPlay.progress.seconds');
+	const displaySeconds = seconds > 0 && `${seconds}${secondLabel}`;
 
 	return (
 		<Box
-			ref={ref}
 			sx={{
 				width: size,
 				height: size,
@@ -51,7 +52,6 @@ const AutoplayProgress = forwardRef<HTMLDivElement, AutoplayProgressProps>((prop
 			<Box
 				component='svg'
 				viewBox={`0 0 ${size} ${size}`}
-				ref={progressRef}
 				sx={{
 					position: 'absolute',
 					inset: 0,
@@ -61,6 +61,7 @@ const AutoplayProgress = forwardRef<HTMLDivElement, AutoplayProgressProps>((prop
 					stroke: strokeColor,
 					strokeWidth: strokeWidth,
 					transform: 'rotate(-90deg)',
+					shapeRendering: 'geometricPrecision',
 					'& circle': {
 						strokeDasharray: circumference,
 						strokeDashoffset: strokeDashoffset,
@@ -77,7 +78,6 @@ const AutoplayProgress = forwardRef<HTMLDivElement, AutoplayProgressProps>((prop
 			{/* Progress label */}
 			<Box
 				component='span'
-				ref={progressLabelRef}
 				sx={{
 					position: 'relative',
 					zIndex: 1,
@@ -85,9 +85,11 @@ const AutoplayProgress = forwardRef<HTMLDivElement, AutoplayProgressProps>((prop
 					color: color,
 					lineHeight: 1,
 				}}
-			/>
+			>
+				{displaySeconds}
+			</Box>
 		</Box>
 	);
-});
+};
 
 export default AutoplayProgress;

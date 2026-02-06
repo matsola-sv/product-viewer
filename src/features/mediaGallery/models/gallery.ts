@@ -8,12 +8,13 @@ export interface SlideStateChange {
 	prev?: SlideState;
 }
 
-export interface AutoplayProgressState {
+export interface AutoplayTimeLeftState {
 	time: number; // ms left
 	progress: number; // 0..1
 }
 
-export type AutoplayProgressCallback = (time: number, progress: number) => void;
-export type SlideChangeCallback = (event: SlideStateChange) => void;
-export type SlideClickCallback = (event: SlideState) => void;
-export type ZoomChangeCallback = (zoomed: boolean) => void;
+export type SlideClickFn = (event: SlideState) => void;
+export type SlideChangeFn = (event: SlideStateChange) => void;
+export type ZoomChangeFn = (zoomed: boolean) => void;
+export type AutoplayTimeLeftFn = (time: number, progress: number) => void;
+export type AutoplayResetTimeLeftFn = () => void;
