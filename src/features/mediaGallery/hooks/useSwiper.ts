@@ -107,15 +107,6 @@ export const useSwiper = (params: UseSwiperParams): UseSwiperResult => {
 		swiperInstance.autoplay.stop();
 	}, [swiperInstance, autoplay]);
 
-	/** Block/unblock swipes when zooming */
-	useEffect(() => {
-		if (!swiperInstance || !enableZoom) return;
-
-		swiperInstance.allowTouchMove = !zoomed;
-		swiperInstance.allowSlideNext = !zoomed;
-		swiperInstance.allowSlidePrev = !zoomed;
-	}, [swiperInstance, zoomed, enableZoom]);
-
 	/** Sync zoom state to Swiper */
 	useEffect(() => {
 		if (!swiperInstance || !swiperInstance.zoom || !enableZoom) return;
