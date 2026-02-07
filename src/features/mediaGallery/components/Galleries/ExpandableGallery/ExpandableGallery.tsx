@@ -1,6 +1,6 @@
 import { type FC, useState } from 'react';
 
-import { Box, type SxProps, type Theme } from '@mui/material';
+import { Box, type SxProps, type Theme, useMediaQuery, useTheme } from '@mui/material';
 
 import GalleryActions from '@/features/mediaGallery/components/Controls/GalleryActions';
 import { AutoplayTimeLeftProvider } from '@/features/mediaGallery/context';
@@ -8,7 +8,7 @@ import { GalleryProvider } from '@/features/mediaGallery/context/gallery';
 import type { MediaItem } from '@/features/mediaGallery/models/media';
 
 import type { GalleryActionProps } from '../../Controls/actions.types';
-import type { GalleryThumbnailProps } from '../../gallery.types';
+import type { GalleryProps, GalleryThumbnailProps } from '../../gallery.types';
 
 import GalleryDialog from '../GalleryDialog';
 import HorizontalGallery from '../HorizontalGallery';
@@ -40,7 +40,16 @@ const ExpandableGallery: FC<ExpandableGalleryProps> = props => {
 	const skipCloseSelector = `.swiper-button-prev, .swiper-button-next, .${actionClass}`;
 
 	const { items, thumbnail, style, activeIndex: initIndex = 0 } = props;
+
+	const theme = useTheme();
 	const [isDialogOpen, setIsDialogOpen] = useState(false);
+	const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm')); // xs / sm
+
+	const galleryProps: GalleryProps = { items, thumbnail };
+	const dialogGalleryProps: GalleryProps = {
+		...galleryProps,
+		enableZoom: true,
+	};
 
 	const openDialog = (): void => {
 		setIsDialogOpen(true);
@@ -74,8 +83,7 @@ const ExpandableGallery: FC<ExpandableGalleryProps> = props => {
 
 						<Box sx={{ height: 500 }}>
 							<HorizontalGallery
-								items={items}
-								thumbnail={thumbnail}
+								{...galleryProps}
 								style={{ cursor: 'grab' }}
 								onClick={openDialog}
 							/>
@@ -101,11 +109,11 @@ const ExpandableGallery: FC<ExpandableGalleryProps> = props => {
 							boxSizing: 'border-box',
 						}}
 					>
-						<VerticalGallery
-							enableZoom={true}
-							items={items}
-							thumbnail={thumbnail}
-						/>
+						{isSmallScreen ? (
+							<HorizontalGallery {...dialogGalleryProps} />
+						) : (
+							<VerticalGallery {...dialogGalleryProps} />
+						)}
 					</GalleryDialog>
 				</AutoplayTimeLeftProvider>
 			</GalleryProvider>
