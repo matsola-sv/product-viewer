@@ -62,7 +62,7 @@ const ExpandableGallery: FC<ExpandableGalleryProps> = props => {
 	return (
 		<>
 			<GalleryProvider
-				total={items.length}
+				slides={items}
 				autoplay={false}
 				activeIndex={initIndex}
 			>
