@@ -1,58 +1,30 @@
 import type { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { Box, Tooltip } from '@mui/material';
+import PauseIcon from '@mui/icons-material/Pause';
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import { IconButton, Tooltip } from '@mui/material';
 
-import type { GalleryActionProps } from '../actions.types';
-
-import { CirclePlayPauseIcon } from '@/shared/ui/components/Icons';
-
-export interface AutoplayToggleProps extends GalleryActionProps {
+export interface AutoplayToggleProps {
 	autoplay: boolean;
+	className?: string;
 	onToggle: () => void;
 }
 
-const AutoplayToggle: FC<AutoplayToggleProps> = props => {
-	const {
-		autoplay,
-		onToggle,
-		styles,
-		size = 36,
-		bgColor,
-		hoverColor,
-		strokeColor,
-		strokeWidth = 2,
-	} = props;
-
+const AutoplayToggle: FC<AutoplayToggleProps> = ({ autoplay, className, onToggle }) => {
 	const { t } = useTranslation();
+
 	const keyPrefix = 'productMedia.autoPlay.toggle.tooltip';
-	const getTitle = () => (autoplay ? t(`${keyPrefix}.off`) : t(`${keyPrefix}.on`));
+	const title = autoplay ? t(`${keyPrefix}.off`) : t(`${keyPrefix}.on`);
 
 	return (
-		<Tooltip title={getTitle()}>
-			<Box
+		<Tooltip title={title}>
+			<IconButton
+				className={className}
 				onClick={onToggle}
-				sx={{
-					width: size,
-					height: size,
-					display: 'inline-flex',
-					alignItems: 'center',
-					justifyContent: 'center',
-					bgcolor: bgColor,
-					borderRadius: 0,
-					cursor: 'pointer',
-					transition: 'background-color 0.2s ease',
-					'&:hover': { bgcolor: hoverColor },
-					...styles,
-				}}
 			>
-				<CirclePlayPauseIcon
-					size={size}
-					strokeColor={strokeColor}
-					strokeWidth={strokeWidth}
-					paused={autoplay}
-				/>
-			</Box>
+				{autoplay ? <PauseIcon /> : <PlayArrowIcon />}
+			</IconButton>
 		</Tooltip>
 	);
 };

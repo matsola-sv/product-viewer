@@ -11,7 +11,7 @@ import type {
 
 import { stopSlideVideo } from '../utils/galleryVideo';
 
-import { useAutoplayTimeLeft } from './useAutoplayProgress';
+import { useAutoplayTimeLeft } from './useAutoplayTimeLeft';
 import { useGalleryContext } from './useGalleryContext';
 
 interface UseGalleryParams {

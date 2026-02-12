@@ -5,25 +5,16 @@ import { Box } from '@mui/material';
 
 import { useAutoplayTimeLeft } from '@/features/mediaGallery/hooks';
 
-import type { GalleryActionProps } from '../actions.types';
+interface AutoplayProgressProps {
+	radius?: number; // Radius [1-50] of the progress circle
+	className?: string;
+}
 
-const AutoplayProgress: FC<GalleryActionProps> = props => {
-	const {
-		size = 36,
-		fontSize,
-		color,
-		bgColor,
-		hoverColor,
-		strokeColor,
-		strokeWidth = 2,
-		fontWeight,
-		styles,
-	} = props;
-
+const AutoplayProgress: FC<AutoplayProgressProps> = ({ radius = 44, className }) => {
 	const { t } = useTranslation();
 	const { seconds, progress } = useAutoplayTimeLeft();
 
-	const radius = size / 2 - strokeWidth - 1;
+	// Calculate circle circumference and stroke offset based on progress
 	const circumference = 2 * Math.PI * radius;
 	const strokeDashoffset = circumference * progress;
 
@@ -32,45 +23,51 @@ const AutoplayProgress: FC<GalleryActionProps> = props => {
 
 	return (
 		<Box
-			sx={{
-				width: size,
-				height: size,
-				display: 'flex',
-				alignItems: 'center',
-				justifyContent: 'center',
-				bgcolor: bgColor,
-				borderRadius: 0,
-				overflow: 'visible',
-				fontWeight: fontWeight,
-				transition: 'background-color 0.2s ease',
-				'&:hover': { bgcolor: hoverColor },
-				position: 'relative',
-				...styles,
-			}}
+			className={className}
+			sx={[
+				{
+					display: 'flex',
+					alignItems: 'center',
+					justifyContent: 'center',
+					position: 'relative',
+					overflow: 'visible',
+					transition: 'background-color 0.2s ease',
+				},
+				{
+					width: { xs: 50, sm: 55, md: 60 },
+					height: { xs: 30, sm: 35, md: 40 },
+					transition: 'background-color 0.2s ease',
+				},
+			]}
 		>
 			{/* Circle progress */}
 			<Box
 				component='svg'
-				viewBox={`0 0 ${size} ${size}`}
-				sx={{
-					position: 'absolute',
-					inset: 0,
-					width: '100%',
-					height: '100%',
-					fill: 'none',
-					stroke: strokeColor,
-					strokeWidth: strokeWidth,
-					transform: 'rotate(-90deg)',
-					shapeRendering: 'geometricPrecision',
-					'& circle': {
-						strokeDasharray: circumference,
-						strokeDashoffset: strokeDashoffset,
+				viewBox='0 0 100 100'
+				sx={[
+					{
+						position: 'absolute',
+						inset: 0,
+						width: '100%',
+						height: '100%',
+						fill: 'none',
+						transform: 'rotate(-90deg)',
+						shapeRendering: 'geometricPrecision',
+						'& circle': {
+							strokeDashoffset,
+							strokeDasharray: circumference,
+						},
 					},
-				}}
+					{
+						fill: 'transparent',
+						stroke: 'rgba(0,0,0,0.87)',
+						strokeWidth: { xs: 3.6, sm: 4.5, md: 5.2 },
+					},
+				]}
 			>
 				<circle
-					cx={size / 2}
-					cy={size / 2}
+					cx={50}
+					cy={50}
 					r={radius}
 				/>
 			</Box>
@@ -78,13 +75,13 @@ const AutoplayProgress: FC<GalleryActionProps> = props => {
 			{/* Progress label */}
 			<Box
 				component='span'
-				sx={{
-					position: 'relative',
-					zIndex: 1,
-					fontSize: fontSize,
-					color: color,
-					lineHeight: 1,
-				}}
+				sx={[
+					{
+						position: 'relative',
+						zIndex: 1,
+						lineHeight: 1,
+					},
+				]}
 			>
 				{displaySeconds}
 			</Box>

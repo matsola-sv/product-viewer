@@ -1,3 +1,4 @@
+export { default as AutoplayControls } from './AutoplayControls';
 export { default as AutoplayProgress } from './AutoplayProgress';
 export { default as AutoplayToggle } from './AutoplayToggle';
 export { default as GalleryActions } from './GalleryActions';

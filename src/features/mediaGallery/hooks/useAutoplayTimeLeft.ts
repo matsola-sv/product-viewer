@@ -11,7 +11,6 @@ export interface AutoplayTimeLeftResult {
 	resetTimeLeft: AutoplayResetTimeLeftFn;
 }
 
-/** */
 export const useAutoplayTimeLeft = (): AutoplayTimeLeftResult => {
 	const context = useContext(AutoplayTimeLeftContext);
 
