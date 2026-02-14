@@ -53,17 +53,26 @@ const ExpandableGallery: FC<ExpandableGalleryProps> = props => {
 				<Box
 					sx={{
 						width: '100%',
+						height: '100%',
 						display: 'flex',
 						flexDirection: 'column',
 						gap: 2,
+						minHeight: 250,
 						...style,
 					}}
 				>
 					<AutoplayTimeLeftProvider>
-						<Box sx={{ height: 500 }}>
+						<Box
+							sx={{
+								position: 'relative',
+								height: '100%',
+								flex: 1,
+								minHeight: 0,
+							}}
+						>
 							<HorizontalGallery
 								{...galleryProps}
-								style={{ cursor: 'grab' }}
+								style={{ cursor: 'grab', height: '100%' }}
 								onClick={openDialog}
 							/>
 						</Box>
