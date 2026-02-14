@@ -16,7 +16,8 @@ const slideStyles: SxProps<Theme> = {
 	objectFit: 'cover',
 	cursor: 'pointer',
 	overflow: 'hidden',
-	borderRadius: 1,
+	borderRadius: 0,
+	bgcolor: '#fff', // fallback for images aspect ratio mismatch
 };
 
 const GalleryThumbnail: FC<GalleryThumbnailProps> = ({ item, style }) => {
@@ -32,7 +33,7 @@ const GalleryThumbnail: FC<GalleryThumbnailProps> = ({ item, style }) => {
 					alt={isImage(item) ? item.alt : 'video thumbnail'}
 					sx={{
 						width: '100%',
-						height: 80,
+						height: '100%',
 						objectFit: 'cover',
 					}}
 				/>

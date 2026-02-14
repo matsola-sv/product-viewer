@@ -18,7 +18,7 @@ import { hoverNavStyles, imageStyle, noSelect, stateStyles } from '../../gallery
 /** Center thumbnails vertically when slidesPerView="auto" */
 const verticalThumbsLayout = {
 	'& .swiper-wrapper': {
-		justifyContent: 'center',
+		alignItems: 'flex-start',
 	},
 };
 
@@ -36,7 +36,7 @@ const VerticalGallery = (props: GalleryProps) => {
 		items,
 		enableZoom = false,
 		style,
-		thumbnail = { width: 96, height: 64 },
+		thumbnail = { width: 96, height: 96 },
 		onClick,
 		onSlideChange,
 		onAutoplayTimeLeft,
@@ -86,15 +86,17 @@ const VerticalGallery = (props: GalleryProps) => {
 					navigation
 					watchSlidesProgress
 					style={{
-						width: '100%',
-						height: '100%',
-						padding: '24px 0',
+						/** ensure vertical thumbnails fill height and scroll correctly */
+						margin: 'auto 0',
+						maxHeight: '100%',
 					}}
 				>
 					{items.map(item => (
 						<SwiperSlide
 							key={item.id}
-							style={{ height: thumbnail.height }}
+							style={{
+								height: thumbnail.height,
+							}}
 						>
 							<GalleryThumbnail item={item} />
 						</SwiperSlide>
