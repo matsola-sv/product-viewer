@@ -2,15 +2,14 @@ import type { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { ZoomIn, ZoomOut } from '@mui/icons-material';
-import { IconButton, Tooltip } from '@mui/material';
+import { IconButton, type IconButtonProps, Tooltip } from '@mui/material';
 
+import clsx from 'clsx';
+
+import { galleryClasses } from '@/features/mediaGallery/constants/galleryClasses';
 import { useGalleryContext } from '@/features/mediaGallery/hooks';
 
-export interface ZoomToggleProps {
-	className?: string;
-}
-
-const ZoomToggle: FC<ZoomToggleProps> = ({ className }) => {
+const ZoomToggle: FC<IconButtonProps> = props => {
 	const { t } = useTranslation();
 	const { zoomed, canZoom, toggleZoom } = useGalleryContext();
 
@@ -20,7 +19,8 @@ const ZoomToggle: FC<ZoomToggleProps> = ({ className }) => {
 	return (
 		<Tooltip title={title}>
 			<IconButton
-				className={className}
+				{...props}
+				className={clsx(props.className, zoomed && galleryClasses.active)}
 				disabled={!canZoom}
 				aria-label={title}
 				onClick={toggleZoom}

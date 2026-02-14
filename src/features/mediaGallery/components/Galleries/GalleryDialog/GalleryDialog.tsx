@@ -1,16 +1,12 @@
 import type { ReactNode } from 'react';
 
-import { Close } from '@mui/icons-material';
-import {
-	Dialog,
-	DialogContent,
-	DialogTitle,
-	IconButton,
-	type SxProps,
-	type Theme,
-} from '@mui/material';
+import { Dialog, DialogContent, DialogTitle, type SxProps, type Theme } from '@mui/material';
 
 import { isInteractiveClick } from '@/shared/dom/interactive';
+
+import DialogCloseBtn from './DialogCloseBtn';
+
+import { AutoplayControls, ControlsGroup, GalleryFraction, ZoomToggle } from '../../Controls';
 
 export interface GalleryDialogProps {
 	open: boolean;
@@ -61,7 +57,7 @@ const actionsStyle: SxProps<Theme> = {
 };
 
 const GalleryDialog = (props: GalleryDialogProps) => {
-	const { open, caption, actions, children, skipCloseSelector, onClose } = props;
+	const { open, caption, children, skipCloseSelector, onClose } = props;
 
 	/** Close when click is not on an interactive element */
 	const handleEmptyClick = (event: React.MouseEvent<HTMLDivElement>) => {
@@ -81,10 +77,15 @@ const GalleryDialog = (props: GalleryDialogProps) => {
 				sx={{ ...actionsStyle, ...props.actionsSx }}
 				onClick={handleEmptyClick}
 			>
-				{actions}
-				<IconButton onClick={onClose}>
-					<Close />
-				</IconButton>
+				<ControlsGroup>
+					<GalleryFraction />
+					<AutoplayControls />
+				</ControlsGroup>
+
+				<ControlsGroup>
+					<ZoomToggle />
+					<DialogCloseBtn onClose={onClose} />
+				</ControlsGroup>
 			</DialogTitle>
 
 			<DialogContent

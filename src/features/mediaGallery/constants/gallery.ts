@@ -1,6 +1,6 @@
 import type { AutoplayOptions } from 'swiper/types';
 
-export const AUTOPLAY_OPTIONS: AutoplayOptions = {
+export const autoplayOptions: AutoplayOptions = {
 	delay: 3000,
 	disableOnInteraction: false,
 };

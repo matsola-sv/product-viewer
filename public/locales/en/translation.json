@@ -24,6 +24,12 @@
 			"progress": {
 				"seconds": "s"
 			}
+		},
+		"zoom": {
+			"tooltip": {
+				"in": "Zoom ON",
+				"out": "Zoom OFF"
+			}
 		}
 	}
 }

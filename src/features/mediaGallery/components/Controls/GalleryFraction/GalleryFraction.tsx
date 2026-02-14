@@ -1,12 +1,12 @@
 import type { FC } from 'react';
 
-import { useGalleryContext } from '@/features/mediaGallery/hooks';
+import { type BoxProps } from '@mui/material';
 
-import type { GalleryActionProps } from '../actions.types';
+import { useGalleryContext } from '@/features/mediaGallery/hooks';
 
 import GalleryFractionView from './GalleryFractionView';
 
-const GalleryFraction: FC<GalleryActionProps> = props => {
+const GalleryFraction: FC<BoxProps> = props => {
 	const { activeIndex, total } = useGalleryContext();
 
 	return (

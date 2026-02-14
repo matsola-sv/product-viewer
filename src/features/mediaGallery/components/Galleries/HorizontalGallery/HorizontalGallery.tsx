@@ -6,11 +6,10 @@ import type { Swiper as SwiperType } from 'swiper';
 import { Navigation, Thumbs } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
+import { autoplayOptions } from '@/features/mediaGallery/constants/gallery';
 import { useGallery, useGalleryContext, useSwiper } from '@/features/mediaGallery/hooks';
 
 import type { GalleryProps } from '../../gallery.types';
-
-import { AUTOPLAY_OPTIONS } from '../../../constants/gallery';
 
 import GallerySlide from '../../Slides/GallerySlide';
 import GalleryThumbnail from '../../Slides/GalleryThumbnail';
@@ -68,7 +67,7 @@ const HorizontalGallery = (props: GalleryProps) => {
 					initialSlide={activeIndex}
 					modules={swiperAdapter.swiperModules}
 					thumbs={{ swiper: thumbsSwiper }}
-					autoplay={AUTOPLAY_OPTIONS} // Cannot be changed dynamically (Swiper limitation)
+					autoplay={autoplayOptions} // Cannot be changed dynamically (Swiper limitation)
 					navigation
 					loop={loop}
 					slidesPerView={1}

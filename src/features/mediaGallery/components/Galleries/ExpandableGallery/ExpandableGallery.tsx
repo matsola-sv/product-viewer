@@ -2,19 +2,15 @@ import { type FC, useState } from 'react';
 
 import { Box, type SxProps, type Theme, useMediaQuery, useTheme } from '@mui/material';
 
-import GalleryActions from '@/features/mediaGallery/components/Controls/GalleryActions';
 import { AutoplayTimeLeftProvider } from '@/features/mediaGallery/context';
 import { GalleryProvider } from '@/features/mediaGallery/context/gallery';
 import type { MediaItem } from '@/features/mediaGallery/models/media';
 
-import type { GalleryActionProps } from '../../Controls/actions.types';
 import type { GalleryProps, GalleryThumbnailProps } from '../../gallery.types';
 
 import GalleryDialog from '../GalleryDialog';
 import HorizontalGallery from '../HorizontalGallery';
 import VerticalGallery from '../VerticalGallery';
-
-import { GalleryFraction } from '../../Controls';
 
 interface ExpandableGalleryProps {
 	items: MediaItem[];
@@ -22,18 +18,6 @@ interface ExpandableGalleryProps {
 	thumbnail?: GalleryThumbnailProps;
 	style?: SxProps<Theme>;
 }
-
-/** Base style for gallery control action elements */
-const galleryActionStyle: GalleryActionProps = {
-	size: 36,
-	bgColor: 'rgba(33,43,54,0.9)',
-	hoverColor: '#3d1a9e',
-	color: '#fff',
-	fontSize: 16,
-	fontWeight: 400,
-	strokeColor: '#fff',
-	strokeWidth: 2,
-};
 
 const ExpandableGallery: FC<ExpandableGalleryProps> = props => {
 	const actionClass = 'g-action';
@@ -76,11 +60,6 @@ const ExpandableGallery: FC<ExpandableGalleryProps> = props => {
 					}}
 				>
 					<AutoplayTimeLeftProvider>
-						<GalleryActions
-							actionClass={actionClass}
-							actionStyle={galleryActionStyle}
-						/>
-
 						<Box sx={{ height: 500 }}>
 							<HorizontalGallery
 								{...galleryProps}
@@ -94,20 +73,8 @@ const ExpandableGallery: FC<ExpandableGalleryProps> = props => {
 				<AutoplayTimeLeftProvider>
 					<GalleryDialog
 						skipCloseSelector={skipCloseSelector}
-						actions={
-							<GalleryActions
-								actionClass={actionClass}
-								actionStyle={galleryActionStyle}
-								left={<GalleryFraction {...galleryActionStyle} />}
-							/>
-						}
 						open={isDialogOpen}
 						onClose={closeDialog}
-						actionsSx={{
-							width: '100%',
-							backgroundColor: '#eee',
-							boxSizing: 'border-box',
-						}}
 					>
 						{isSmallScreen ? (
 							<HorizontalGallery {...dialogGalleryProps} />

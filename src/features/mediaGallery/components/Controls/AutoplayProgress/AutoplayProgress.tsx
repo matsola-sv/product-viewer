@@ -36,7 +36,6 @@ const AutoplayProgress: FC<AutoplayProgressProps> = ({ radius = 44, className })
 				{
 					width: { xs: 50, sm: 55, md: 60 },
 					height: { xs: 30, sm: 35, md: 40 },
-					transition: 'background-color 0.2s ease',
 				},
 			]}
 		>
@@ -59,8 +58,7 @@ const AutoplayProgress: FC<AutoplayProgressProps> = ({ radius = 44, className })
 						},
 					},
 					{
-						fill: 'transparent',
-						stroke: 'rgba(0,0,0,0.87)',
+						stroke: '#130303',
 						strokeWidth: { xs: 3.6, sm: 4.5, md: 5.2 },
 					},
 				]}

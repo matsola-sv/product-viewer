@@ -5,6 +5,10 @@ import PauseIcon from '@mui/icons-material/Pause';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import { IconButton, Tooltip } from '@mui/material';
 
+import clsx from 'clsx';
+
+import { galleryClasses } from '@/features/mediaGallery/constants/galleryClasses';
+
 export interface AutoplayToggleProps {
 	autoplay: boolean;
 	className?: string;
@@ -20,7 +24,7 @@ const AutoplayToggle: FC<AutoplayToggleProps> = ({ autoplay, className, onToggle
 	return (
 		<Tooltip title={title}>
 			<IconButton
-				className={className}
+				className={clsx(className, autoplay && galleryClasses.active)}
 				onClick={onToggle}
 			>
 				{autoplay ? <PauseIcon /> : <PlayArrowIcon />}
