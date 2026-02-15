@@ -12,6 +12,8 @@ import GalleryDialog from '../GalleryDialog';
 import HorizontalGallery from '../HorizontalGallery';
 import VerticalGallery from '../VerticalGallery';
 
+import { AutoplayControls, GalleryOverlayControls } from '../../Controls';
+
 interface ExpandableGalleryProps {
 	items: MediaItem[];
 	activeIndex?: number;
@@ -70,6 +72,10 @@ const ExpandableGallery: FC<ExpandableGalleryProps> = props => {
 								minHeight: 0,
 							}}
 						>
+							<GalleryOverlayControls slides={items}>
+								<AutoplayControls />
+							</GalleryOverlayControls>
+
 							<HorizontalGallery
 								{...galleryProps}
 								style={{ cursor: 'grab', height: '100%' }}

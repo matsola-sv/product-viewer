@@ -16,7 +16,6 @@ const AutoplayControls: FC<AutoplayControlsProps> = ({ radius }) => {
 				autoplay={autoplay}
 				onToggle={toggleAutoplay}
 			/>
-
 			{autoplay && <AutoplayProgress radius={radius} />}
 		</>
 	);

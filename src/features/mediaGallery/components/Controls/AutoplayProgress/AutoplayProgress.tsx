@@ -3,6 +3,9 @@ import { useTranslation } from 'react-i18next';
 
 import { Box } from '@mui/material';
 
+import clsx from 'clsx';
+
+import { galleryClasses } from '@/features/mediaGallery/constants/galleryClasses';
 import { useAutoplayTimeLeft } from '@/features/mediaGallery/hooks';
 
 interface AutoplayProgressProps {
@@ -23,7 +26,7 @@ const AutoplayProgress: FC<AutoplayProgressProps> = ({ radius = 44, className })
 
 	return (
 		<Box
-			className={className}
+			className={clsx(className, galleryClasses.autoprog)}
 			sx={[
 				{
 					display: 'flex',

@@ -20,7 +20,11 @@ const ZoomToggle: FC<IconButtonProps> = props => {
 		<Tooltip title={title}>
 			<IconButton
 				{...props}
-				className={clsx(props.className, zoomed && galleryClasses.active)}
+				className={clsx(
+					props.className,
+					galleryClasses.ctrlIcon,
+					zoomed && galleryClasses.ctrlActive,
+				)}
 				disabled={!canZoom}
 				aria-label={title}
 				onClick={toggleZoom}

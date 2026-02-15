@@ -1,3 +1,5 @@
+import type { MediaItem, VideoItem } from '../models/media';
+
 /**
  * Enable YouTube JS API on the URL for programmatic video control (play/pause/stop).
  **/
@@ -41,4 +43,12 @@ export const stopYouTubeIframe = (iframe: HTMLIFrameElement) => {
 	};
 
 	win.postMessage(JSON.stringify(message), '*');
+};
+
+/**
+ * Type guard: tells TypeScript that when this returns true,
+ * the item is definitely an VideoItem (so we can safely access video-only fields).
+ */
+export const isVideo = (item?: MediaItem): item is VideoItem => {
+	return !!item && item.type === 'video';
 };

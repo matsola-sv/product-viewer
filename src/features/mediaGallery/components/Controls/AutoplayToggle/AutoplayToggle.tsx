@@ -24,7 +24,11 @@ const AutoplayToggle: FC<AutoplayToggleProps> = ({ autoplay, className, onToggle
 	return (
 		<Tooltip title={title}>
 			<IconButton
-				className={clsx(className, autoplay && galleryClasses.active)}
+				className={clsx(
+					className,
+					galleryClasses.ctrlIcon,
+					autoplay && galleryClasses.ctrlActive,
+				)}
 				onClick={onToggle}
 			>
 				{autoplay ? <PauseIcon /> : <PlayArrowIcon />}
