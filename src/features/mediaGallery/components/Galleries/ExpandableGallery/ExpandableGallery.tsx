@@ -1,7 +1,8 @@
-import { type FC, useState } from 'react';
+import { type FC, type ReactNode, useState } from 'react';
 
 import { Box, type SxProps, type Theme, useMediaQuery, useTheme } from '@mui/material';
 
+import { galleryClasses } from '@/features/mediaGallery/constants/galleryClasses';
 import { AutoplayTimeLeftProvider } from '@/features/mediaGallery/context';
 import { GalleryProvider } from '@/features/mediaGallery/context/gallery';
 import type { MediaItem } from '@/features/mediaGallery/models/media';
@@ -16,14 +17,16 @@ import { AutoplayControls, GalleryOverlayControls } from '../../Controls';
 
 interface ExpandableGalleryProps {
 	items: MediaItem[];
+	caption?: ReactNode;
 	activeIndex?: number;
 	thumbnail?: GalleryThumbnailProps;
 	style?: SxProps<Theme>;
 }
 
 const ExpandableGallery: FC<ExpandableGalleryProps> = props => {
-	const actionClass = 'g-action';
-	const skipCloseSelector = `.swiper-button-prev, .swiper-button-next, .${actionClass}`;
+	const nextBtnCls = '.swiper-button-next';
+	const prevBtnCls = '.swiper-button-prev';
+	const skipCloseSelector = `${prevBtnCls}, ${nextBtnCls}, .${galleryClasses.ctrlGroup}`;
 
 	const { items, thumbnail, style, activeIndex: initIndex = 0 } = props;
 
@@ -87,8 +90,9 @@ const ExpandableGallery: FC<ExpandableGalleryProps> = props => {
 
 				<AutoplayTimeLeftProvider>
 					<GalleryDialog
-						skipCloseSelector={skipCloseSelector}
 						open={isDialogOpen}
+						caption={props.caption}
+						skipCloseSelector={skipCloseSelector}
 						onClose={closeDialog}
 					>
 						{isSmallScreen ? (

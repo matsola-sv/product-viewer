@@ -13,7 +13,6 @@ export interface GalleryDialogProps {
 	open: boolean;
 	children: ReactNode;
 	caption?: ReactNode;
-	actions?: ReactNode;
 	actionsSx?: SxProps<Theme>;
 	contentSx?: SxProps<Theme>;
 	captionSx?: SxProps<Theme>;
@@ -26,7 +25,17 @@ export interface GalleryDialogProps {
 
 const captionStyle: SxProps<Theme> = {
 	borderTop: '1px solid rgba(255,255,255,0.12)',
-	padding: 2,
+	paddingY: 1.5,
+	px: 2,
+	textAlign: 'center',
+	typography: 'body2',
+	color: 'text.secondary',
+	fontSize: {
+		xs: '0.875rem',
+		sm: '0.9rem',
+		md: '1rem',
+	},
+	lineHeight: 1.4,
 };
 
 const contentSx: SxProps<Theme> = {
