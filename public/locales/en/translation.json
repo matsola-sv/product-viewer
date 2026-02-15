@@ -31,5 +31,15 @@
 				"out": "Zoom OFF"
 			}
 		}
+	},
+	"shared": {
+		"ui": {
+			"fullscreenToggle": {
+				"labels": {
+					"enter": "Enter fullscreen",
+					"exit": "Exit fullscreen"
+				}
+			}
+		}
 	}
 }

@@ -4,7 +4,7 @@ import type { AppLanguage } from '@/shared/localization/models/language';
 
 import { languageService } from '@/shared/localization/services/languageService';
 
-import OverlaySpinner from '@/shared/ui/components/Spinners/OverlaySpinner';
+import { OverlaySpinner } from '@/shared/ui/components/Spinners';
 
 interface LangProviderProps extends PropsWithChildren {
 	lng?: AppLanguage; // Default language
