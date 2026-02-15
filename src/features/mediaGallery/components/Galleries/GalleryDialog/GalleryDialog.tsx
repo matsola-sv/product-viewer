@@ -5,6 +5,7 @@ import { Dialog, DialogContent, DialogTitle, type SxProps, type Theme } from '@m
 import { isInteractiveClick } from '@/shared/dom/interactive';
 
 import DialogCloseBtn from './DialogCloseBtn';
+import { FullscreenToggle } from '@/shared/ui/components/Buttons';
 
 import { AutoplayControls, ControlsGroup, GalleryFraction, ZoomToggle } from '../../Controls';
 
@@ -84,6 +85,7 @@ const GalleryDialog = (props: GalleryDialogProps) => {
 
 				<ControlsGroup>
 					<ZoomToggle />
+					<FullscreenToggle />
 					<DialogCloseBtn onClose={onClose} />
 				</ControlsGroup>
 			</DialogTitle>
