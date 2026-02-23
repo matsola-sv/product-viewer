@@ -6,8 +6,6 @@ Product Viewer built with `[React, TypeScript, Vite, MUI]`
 
 - **i18next** — for internationalization
 
-## [Live demo](https://matsola-sv.github.io/product-viewer/)
-
 ## Run Locally
 
 ### 1. Install Dependencies
